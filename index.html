@@ -437,42 +437,48 @@
   #navHint .mico{width:10px; height:14px; flex:none;}
   #navHint .nav-sep{opacity:.32; font-size:9px; line-height:1;}
 
-  /* 移动端侧边缩放滑杆 */
+  /* 移动端侧边缩放滑杆（极简竖轨，无胶囊外壳） */
   #zoomRail{
     display:none; position:fixed; z-index:16;
-    right:max(8px, env(safe-area-inset-right));
+    right:max(6px, env(safe-area-inset-right));
     top:50%; transform:translateY(-50%);
-    flex-direction:column; align-items:center; justify-content:center; gap:10px;
-    width:44px; height:min(46vh, 300px);
-    padding:10px 0;
-    background:rgba(22,17,12,.78); border:1px solid rgba(201,162,39,.28);
-    border-radius:14px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    box-shadow:0 8px 24px rgba(0,0,0,.35); touch-action:none;
+    flex-direction:column; align-items:center; justify-content:center;
+    width:36px; height:min(62vh, 420px);
+    padding:0; margin:0;
+    background:transparent; border:none; box-shadow:none;
+    backdrop-filter:none; -webkit-backdrop-filter:none;
+    touch-action:none; pointer-events:none;
   }
-  #zoomRail .zoom-btn{
-    width:30px; height:30px; border-radius:8px; border:1px solid rgba(201,162,39,.35);
-    background:rgba(201,162,39,.1); color:var(--jin); font-size:18px; line-height:1;
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-    -webkit-user-select:none; user-select:none;
-  }
-  #zoomRail .zoom-btn:active{background:rgba(201,162,39,.28);}
   #zoomRail .zoom-track-wrap{
-    flex:1 1 auto; min-height:0; width:100%; display:flex; align-items:center; justify-content:center;
+    flex:1 1 auto; min-height:0; width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:auto;
   }
   #zoomRail input[type=range]{
     -webkit-appearance:none; appearance:none;
-    width:min(38vh, 240px); height:4px; margin:0;
+    width:min(56vh, 380px); height:3px; margin:0;
     transform:rotate(-90deg); transform-origin:center center;
-    background:linear-gradient(90deg, rgba(201,162,39,.25), rgba(201,162,39,.6));
+    background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.72));
     border-radius:2px; outline:none; touch-action:none;
+    box-shadow:0 0 0 1px rgba(0,0,0,.18);
+  }
+  #zoomRail input[type=range]::-webkit-slider-runnable-track{
+    height:3px; border-radius:2px;
+    background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.72));
+  }
+  #zoomRail input[type=range]::-moz-range-track{
+    height:3px; border-radius:2px; border:none;
+    background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.72));
   }
   #zoomRail input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none; width:18px; height:18px; border-radius:50%;
-    background:var(--jin); box-shadow:0 0 10px rgba(201,162,39,.55); cursor:pointer;
+    -webkit-appearance:none; width:16px; height:16px; margin-top:-6.5px;
+    border-radius:50%; border:1.5px solid rgba(233,220,192,.55);
+    background:rgba(201,162,39,.92); box-shadow:0 1px 6px rgba(0,0,0,.35); cursor:pointer;
   }
-  #zoomRail .zoom-lab{
-    font-size:9px; letter-spacing:1px; color:rgba(201,166,107,.75);
-    font-family:var(--font-en); writing-mode:horizontal-tb;
+  #zoomRail input[type=range]::-moz-range-thumb{
+    width:16px; height:16px; border-radius:50%;
+    border:1.5px solid rgba(233,220,192,.55);
+    background:rgba(201,162,39,.92); box-shadow:0 1px 6px rgba(0,0,0,.35); cursor:pointer;
   }
   @media (pointer:coarse){
     #zoomRail{display:flex;}
@@ -552,16 +558,13 @@
   <div id="labels"></div>
 
   <div id="zoomRail" aria-label="缩放">
-    <button type="button" class="zoom-btn" id="zoomInBtn" title="放大">+</button>
     <div class="zoom-track-wrap">
       <input type="range" id="zoomSlider" min="0" max="1000" value="500" step="1" aria-label="缩放滑杆" />
     </div>
-    <button type="button" class="zoom-btn" id="zoomOutBtn" title="缩小">−</button>
-    <span class="zoom-lab">Zoom</span>
   </div>
 
   <div id="navHint" aria-label="操纵方式">
-    <span class="nav-touch">单指旋转 · 侧栏缩放 · 双指平移</span>
+    <span class="nav-touch">单指旋转 · 双指捏合缩放 · 侧栏滑杆</span>
     <span class="nav-mouse">
     <span class="nav-item">
       <svg class="mico" viewBox="0 0 36 50" aria-hidden="true">
@@ -3071,13 +3074,16 @@
     if (IS_COARSE){
       controls.rotateSpeed = 0.72;
       controls.panSpeed = 0.6;
-      controls.enableZoom = false; /* 缩放改走侧栏，避免双指捏合退出页面 */
+      controls.enableZoom = true; /* 双指捏合缩放 */
+      controls.zoomSpeed = 1.05;
       if (THREE.TOUCH){
-        controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.PAN };
+        /* 单指旋转；双指捏合缩放 + 平移 */
+        controls.touches = {
+          ONE: THREE.TOUCH.ROTATE,
+          TWO: THREE.TOUCH.DOLLY_PAN
+        };
       }
       var zoomSlider = document.getElementById("zoomSlider");
-      var zoomInBtn = document.getElementById("zoomInBtn");
-      var zoomOutBtn = document.getElementById("zoomOutBtn");
       if (zoomSlider){
         zoomSlider.addEventListener("input", function(){
           setCamDist(sliderToDist(zoomSlider.value));
@@ -3085,12 +3091,6 @@
         zoomSlider.addEventListener("touchstart", function(e){ e.stopPropagation(); }, {passive:true});
         zoomSlider.addEventListener("touchmove", function(e){ e.stopPropagation(); }, {passive:true});
       }
-      function nudgeZoom(factor){
-        setCamDist(camDist() * factor);
-        syncZoomSlider();
-      }
-      if (zoomInBtn) zoomInBtn.addEventListener("click", function(){ nudgeZoom(0.86); });
-      if (zoomOutBtn) zoomOutBtn.addEventListener("click", function(){ nudgeZoom(1.16); });
       /* 防下拉刷新 / 防页面滚动：仅允许卡片与面板内滚动 */
       document.addEventListener("touchmove", function(e){
         var t = e.target;
