@@ -419,10 +419,10 @@
     body.app-ready #zoomRail{opacity:1; pointer-events:auto;}
     body.app-ready.detail-open #zoomRail,
     body.app-ready:has(#detail.open) #zoomRail{opacity:0; pointer-events:none;}
-    /* 手机端开卡：详情盖住左下角图例/参数面板 */
+    /* 手机端开卡：浮窗不盖左下角时仍可操作图例/参数 */
     body.app-ready.detail-open #leftPanels,
     body.app-ready:has(#detail.open) #leftPanels{
-      opacity:0; pointer-events:none; visibility:hidden;
+      opacity:1; pointer-events:auto; visibility:visible;
     }
   }
 
@@ -504,6 +504,32 @@
   @media (max-width:768px) and (pointer:coarse){
     #navHint .nav-mouse{display:none;}
     #navHint .nav-touch{display:inline;}
+    /* 移动端：毛玻璃浮窗，不全屏 */
+    #detail{
+      top:auto; left:auto;
+      right:max(10px, env(safe-area-inset-right));
+      bottom:max(12px, env(safe-area-inset-bottom));
+      width:min(86vw, 360px);
+      height:min(68vh, 560px);
+      max-height:calc(100dvh - 88px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+      border:1px solid rgba(201,162,39,.34);
+      border-radius:16px;
+      box-shadow:0 16px 48px rgba(0,0,0,.55),
+        0 0 0 1px rgba(255,248,235,.06) inset,
+        inset 0 1px 0 rgba(255,248,235,.08);
+      padding-right:0;
+      transform:translateY(calc(100% + 28px));
+      background:linear-gradient(205deg,
+        rgba(38,28,18,.78) 0%,
+        rgba(24,17,11,.78) 55%,
+        rgba(18,13,9,.78) 100%);
+      backdrop-filter:blur(22px) saturate(1.45) brightness(1.06);
+      -webkit-backdrop-filter:blur(22px) saturate(1.45) brightness(1.06);
+    }
+    #detail.open{transform:translateY(0);}
+    #detail .detail-head{padding:18px 48px 10px 16px; border-radius:16px 16px 0 0;}
+    #detail .detail-scroll{padding:12px 14px 22px 16px;}
+    #detail h2{font-size:24px;}
   }
   @media(max-width:768px){
     #topbar{padding:10px 6px 10px 14px; gap:10px;
@@ -519,9 +545,20 @@
     #leftPanels{left:10px; bottom:10px; max-width:210px; gap:4px;
       left:max(10px, env(safe-area-inset-left));
       bottom:max(10px, env(safe-area-inset-bottom));}
+    #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
+  }
+  /* 窄屏非触控：仍用右侧抽拉栏 */
+  @media (max-width:768px) and (pointer:fine){
     #detail{width:min(100vw - env(safe-area-inset-right), 360px);
       padding-right:env(safe-area-inset-right);}
-    #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
+  }
+  @media (max-width:560px) and (pointer:coarse){
+    #detail{
+      width:min(90vw, 360px);
+      height:min(70vh, 580px);
+      right:max(8px, env(safe-area-inset-right));
+      bottom:max(10px, env(safe-area-inset-bottom));
+    }
   }
   @media(max-width:640px) and (orientation:portrait){
     /* 竖屏标题：两字一行 · 木 / 构千 / 年 */
@@ -548,7 +585,6 @@
     #search button{width:44px; height:44px;}
     #search button svg{width:18px; height:18px;}
     #leftPanels{max-width:180px;}
-    #detail{width:100%; max-width:none;}
   }
   @media(max-width:480px){
     #topbar{padding:8px 4px 8px 10px;
