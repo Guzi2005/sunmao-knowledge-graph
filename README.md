@@ -1,6 +1,8 @@
-# 中国古代榫卯结构知识图谱
+# Tenennium · 榫卯 · 木构千年
 
 三维交互式知识图谱：榫卯类型、古建、典籍、工艺与跨文化关联。
+
+**站点：** [tenennium.florescentmice.fun](https://tenennium.florescentmice.fun)
 
 ## 快速开始
 
@@ -22,11 +24,11 @@ python -c "import http.server,socketserver; socketserver.TCPServer(('127.0.0.1',
 
 | 路径 | 说明 |
 |------|------|
-| `index.html` | 单页应用（开发/完整版入口） |
+| `index.html` | 单页应用入口 |
 | `assets/` | favicon、Three.js、3d-force-graph |
 | `data/sunmao-graph.source.js` | 图谱数据源 |
 | `data/illus/` | 榫卯示意图 |
-| `比赛提交包/` | 开箱即用编译成品（无脚手架） |
+| `比赛提交包/` | 开箱即用编译成品 |
 
 ## 操作
 
