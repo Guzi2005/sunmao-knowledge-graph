@@ -1,0 +1,18 @@
+# Python scaffolding / cache
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local only
+*.log
+.cache/
