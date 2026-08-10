@@ -304,7 +304,7 @@ window.GRAPH_DATA = {
       ],
       "enDetail": "Used on flush three-sided pieces (stools, stands): three members meet with six 45° miters, reading as a crisp ‘zong’ tip. Dimensional accuracy is unforgiving because three axes converge at one point.",
       "illus": "data/illus/zongjiao.png",
-      "illusStyle": "photo"
+      "illusStyle": "line"
     },
     {
       "id": "changduan",

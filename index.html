@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
@@ -92,7 +92,10 @@
     background:var(--panelBg); color:var(--paper); border-radius:10px;
     font-family:var(--font-base); font-size:13px; outline:none; transition:border-color .2s;}
   #search input:focus{border-color:var(--jin);}
-  #search input::placeholder{color:rgba(233,220,192,.45);}
+  #search input::placeholder{
+    color:rgba(233,220,192,.42);
+    font-size:11px; font-style:italic; letter-spacing:.3px;
+  }
   #search button{border:1px solid var(--panelBorder); border-radius:10px; cursor:pointer;
     background:var(--panelBg); color:var(--jin); font-size:18px; line-height:1;
     box-shadow:0 0 10px rgba(201,162,39,.25); transition:all .2s;
@@ -416,6 +419,11 @@
     body.app-ready #zoomRail{opacity:1; pointer-events:auto;}
     body.app-ready.detail-open #zoomRail,
     body.app-ready:has(#detail.open) #zoomRail{opacity:0; pointer-events:none;}
+    /* 手机端开卡：详情盖住左下角图例/参数面板 */
+    body.app-ready.detail-open #leftPanels,
+    body.app-ready:has(#detail.open) #leftPanels{
+      opacity:0; pointer-events:none; visibility:hidden;
+    }
   }
 
   /* 隐藏库自带纯文字导航 */
@@ -540,6 +548,7 @@
     #loading .splash-line{font-size:min(56px, 11vw); letter-spacing:2px; flex-wrap:nowrap;}
     #loading .splash-sub{font-size:11px;}
     #search input{width:min(140px, 34vw); font-size:16px; padding:8px 10px;}
+    #search input::placeholder{font-size:12px; font-style:italic;}
     #search button{width:44px; height:44px;}
     #search button svg{width:18px; height:18px;}
     #leftPanels{max-width:180px;}
@@ -606,7 +615,7 @@
       <small>A 3D Knowledge Graph of Chinese Mortise-Tenon Joinery</small>
     </div>
     <div id="search">
-      <input id="searchInput" type="text" placeholder="检索节点：榫卯 / 佛光寺 / 营造法式 / 山西" />
+      <input id="searchInput" type="text" placeholder="检索节点..." />
       <button id="searchBtn" title="定位节点">
         <svg width="21" height="21" viewBox="0 0 1024 1024" fill="currentColor">
           <path d="M928 1024h-64v-24L556.8 416h-89.6L160 1000V1024H96v-40L428.8 352h166.4L928 984V1024z"/>
@@ -921,7 +930,7 @@
   <!-- 库 -->
   <script src="assets/vendor/three.min.js"></script>
   <script src="assets/vendor/3d-force-graph.min.js"></script>
-  <script src="data/sunmao-graph.source.js?v=20260810ad"></script>
+  <script src="data/sunmao-graph.source.js?v=20260810ae"></script>
   <script src="data/province-outlines.js?v=20260810b"></script>
   <script src="data/liang-constellations.js?v=20260810n"></script>
   <script src="data/astro-constellations.js?v=20260810a"></script>
