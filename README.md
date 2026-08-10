@@ -4,9 +4,10 @@
 
 **站点：** [tenennium.florescentmice.fun](https://tenennium.florescentmice.fun)
 
+<!-- 按原图像宽高比分配宽度，并排同高且合计撑满行宽：711/1024 与 1024/560 -->
 <p align="center">
-  <img src="docs/screenshots/tenennium-overview.png" alt="Tenennium 总览" width="49%" />
-  <img src="docs/screenshots/tenennium-graph.png" alt="Tenennium 图谱近景" width="49%" />
+  <img src="docs/screenshots/tenennium-overview.png" alt="Tenennium 总览" width="27.52%" />
+  <img src="docs/screenshots/tenennium-graph.png" alt="Tenennium 图谱近景" width="72.48%" />
 </p>
 
 ## 快速开始
