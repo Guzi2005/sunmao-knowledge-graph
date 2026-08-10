@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
-  <g stroke="#FFFFFF" stroke-width="48" stroke-linecap="round" stroke-linejoin="round">
+  <g stroke="#000000" stroke-width="48" stroke-linecap="round" stroke-linejoin="round">
     <!-- tripod -->
     <path d="M168 992 L512 360"/>
     <path d="M856 992 L512 360"/>
