@@ -20,6 +20,10 @@ python -c "import http.server,socketserver; socketserver.TCPServer(('127.0.0.1',
 
 > 请通过本地 HTTP 服务打开（WebGL），勿直接双击 `index.html`。
 
+### 方式三
+通过公网访问（正在上线）
+
+
 ## 仓库结构
 
 | 路径 | 说明 |
