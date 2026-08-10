@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Tenennium · 榫卯 · 木构千年</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="apple-touch-icon" href="assets/favicon.svg" />
@@ -44,11 +44,12 @@
   html,body{width:100%; height:100%; overflow:hidden; background:#0a0806;
     font-family:var(--font-base); color:var(--paper);
     -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation;}
+    -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+    overscroll-behavior:none; position:fixed; inset:0;}
   #graph{position:fixed; inset:0;
     background:radial-gradient(circle at 50% 40%, #1c1410 0%, #0f0b08 60%, #060403 100%);
     -webkit-user-select:none; user-select:none; touch-action:none;}
-  #graph canvas{touch-action:none;}
+  #graph canvas{touch-action:none; -webkit-user-drag:none;}
   #meteorLayer{position:fixed; inset:0; z-index:28; pointer-events:none; opacity:.42;}
   #labels{position:fixed; inset:0; pointer-events:none; z-index:5;
     -webkit-user-select:none; user-select:none;}
@@ -406,11 +407,16 @@
   @keyframes spin{to{transform:rotate(360deg);}}
 
   /* 主界面：加载完成后淡入 */
-  #topbar,#leftPanels,#search,#detail,#navHint{opacity:0; transition:opacity .7s ease .15s; pointer-events:none;}
+  #topbar,#leftPanels,#search,#detail,#navHint,#zoomRail{opacity:0; transition:opacity .7s ease .15s; pointer-events:none;}
   body.app-ready #topbar,body.app-ready #leftPanels,body.app-ready #search,body.app-ready #detail,body.app-ready #navHint{
     opacity:1; pointer-events:auto;}
   body.app-ready #detail.open{pointer-events:auto;}
   body.app-ready #navHint{pointer-events:none;}
+  @media (pointer:coarse){
+    body.app-ready #zoomRail{opacity:1; pointer-events:auto;}
+    body.app-ready.detail-open #zoomRail,
+    body.app-ready:has(#detail.open) #zoomRail{opacity:0; pointer-events:none;}
+  }
 
   /* 隐藏库自带纯文字导航 */
   .scene-nav-info{display:none!important;}
@@ -430,6 +436,47 @@
   #navHint .nav-touch{display:none;}
   #navHint .mico{width:10px; height:14px; flex:none;}
   #navHint .nav-sep{opacity:.32; font-size:9px; line-height:1;}
+
+  /* 移动端侧边缩放滑杆 */
+  #zoomRail{
+    display:none; position:fixed; z-index:16;
+    right:max(8px, env(safe-area-inset-right));
+    top:50%; transform:translateY(-50%);
+    flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    width:44px; height:min(46vh, 300px);
+    padding:10px 0;
+    background:rgba(22,17,12,.78); border:1px solid rgba(201,162,39,.28);
+    border-radius:14px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 8px 24px rgba(0,0,0,.35); touch-action:none;
+  }
+  #zoomRail .zoom-btn{
+    width:30px; height:30px; border-radius:8px; border:1px solid rgba(201,162,39,.35);
+    background:rgba(201,162,39,.1); color:var(--jin); font-size:18px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    -webkit-user-select:none; user-select:none;
+  }
+  #zoomRail .zoom-btn:active{background:rgba(201,162,39,.28);}
+  #zoomRail .zoom-track-wrap{
+    flex:1 1 auto; min-height:0; width:100%; display:flex; align-items:center; justify-content:center;
+  }
+  #zoomRail input[type=range]{
+    -webkit-appearance:none; appearance:none;
+    width:min(38vh, 240px); height:4px; margin:0;
+    transform:rotate(-90deg); transform-origin:center center;
+    background:linear-gradient(90deg, rgba(201,162,39,.25), rgba(201,162,39,.6));
+    border-radius:2px; outline:none; touch-action:none;
+  }
+  #zoomRail input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:18px; height:18px; border-radius:50%;
+    background:var(--jin); box-shadow:0 0 10px rgba(201,162,39,.55); cursor:pointer;
+  }
+  #zoomRail .zoom-lab{
+    font-size:9px; letter-spacing:1px; color:rgba(201,166,107,.75);
+    font-family:var(--font-en); writing-mode:horizontal-tb;
+  }
+  @media (pointer:coarse){
+    #zoomRail{display:flex;}
+  }
   @media(max-width:560px){
     #navHint{bottom:8px; padding:3px 8px; gap:5px; font-size:9px;}
     #navHint .mico{width:9px; height:12px;}
@@ -504,8 +551,17 @@
   <div id="graph"></div>
   <div id="labels"></div>
 
+  <div id="zoomRail" aria-label="缩放">
+    <button type="button" class="zoom-btn" id="zoomInBtn" title="放大">+</button>
+    <div class="zoom-track-wrap">
+      <input type="range" id="zoomSlider" min="0" max="1000" value="500" step="1" aria-label="缩放滑杆" />
+    </div>
+    <button type="button" class="zoom-btn" id="zoomOutBtn" title="缩小">−</button>
+    <span class="zoom-lab">Zoom</span>
+  </div>
+
   <div id="navHint" aria-label="操纵方式">
-    <span class="nav-touch">单指旋转 · 双指缩放 · 拖动平移</span>
+    <span class="nav-touch">单指旋转 · 侧栏缩放 · 双指平移</span>
     <span class="nav-mouse">
     <span class="nav-item">
       <svg class="mico" viewBox="0 0 36 50" aria-hidden="true">
@@ -2199,7 +2255,7 @@
       .linkThreeObject(buildLinkObject)
       .linkPositionUpdate(updateLinkObject)
       .onNodeHover(hoverNode)
-      .onNodeClick(clickNode)
+      .onNodeClick(function(node){ safeActivateNode(node); })
       .cooldownTime(forceCooldown);
 
     /* ─── 入场镜头：初始置于远处，待力场收敛后 zoom in ─── */
@@ -2963,6 +3019,8 @@
     controls.autoRotateSpeed = 0.5;
     controls.enableDamping = true;
     controls.dampingFactor = 0.1;
+    var IS_COARSE = window.matchMedia("(pointer: coarse)").matches;
+    var touchGuard = { moved: false, multi: false, sx: 0, sy: 0, suppressUntil: 0 };
     try {
       var graphCv = Graph.renderer() && Graph.renderer().domElement;
       if (graphCv){
@@ -2970,13 +3028,131 @@
         graphCv.setAttribute("aria-label", "3D 知识图谱");
       }
     } catch(e){}
-    if (window.matchMedia("(pointer: coarse)").matches){
-      controls.rotateSpeed = 0.65;
-      controls.zoomSpeed = 0.85;
-      controls.panSpeed = 0.55;
-      if (THREE.TOUCH){
-        controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+
+    /* ─── 移动端：侧栏缩放 + 防误触 / 防浏览器手势 ─── */
+    var ZOOM_MIN = 55;
+    var ZOOM_MAX = 2200;
+    function camDist(){
+      var cam = Graph.camera();
+      var t = controls.target;
+      return Math.hypot(cam.position.x - t.x, cam.position.y - t.y, cam.position.z - t.z);
+    }
+    function setCamDist(dist){
+      dist = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, dist));
+      var cam = Graph.camera();
+      var t = controls.target;
+      var dx = cam.position.x - t.x, dy = cam.position.y - t.y, dz = cam.position.z - t.z;
+      var len = Math.hypot(dx, dy, dz) || 1;
+      var k = dist / len;
+      cam.position.set(t.x + dx * k, t.y + dy * k, t.z + dz * k);
+      controls.update();
+    }
+    function distToSlider(d){
+      var t = Math.log(d / ZOOM_MIN) / Math.log(ZOOM_MAX / ZOOM_MIN);
+      return Math.round(Math.max(0, Math.min(1, t)) * 1000);
+    }
+    function sliderToDist(v){
+      var t = Math.max(0, Math.min(1, Number(v) / 1000));
+      return ZOOM_MIN * Math.pow(ZOOM_MAX / ZOOM_MIN, t);
+    }
+    function syncZoomSlider(){
+      var el = document.getElementById("zoomSlider");
+      if (!el) return;
+      el.value = String(distToSlider(camDist()));
+    }
+    function safeActivateNode(node){
+      if (!node) return;
+      if (IS_COARSE){
+        if (Date.now() < touchGuard.suppressUntil) return;
+        if (touchGuard.moved || touchGuard.multi) return;
       }
+      clickNode(node);
+    }
+    if (IS_COARSE){
+      controls.rotateSpeed = 0.72;
+      controls.panSpeed = 0.6;
+      controls.enableZoom = false; /* 缩放改走侧栏，避免双指捏合退出页面 */
+      if (THREE.TOUCH){
+        controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.PAN };
+      }
+      var zoomSlider = document.getElementById("zoomSlider");
+      var zoomInBtn = document.getElementById("zoomInBtn");
+      var zoomOutBtn = document.getElementById("zoomOutBtn");
+      if (zoomSlider){
+        zoomSlider.addEventListener("input", function(){
+          setCamDist(sliderToDist(zoomSlider.value));
+        });
+        zoomSlider.addEventListener("touchstart", function(e){ e.stopPropagation(); }, {passive:true});
+        zoomSlider.addEventListener("touchmove", function(e){ e.stopPropagation(); }, {passive:true});
+      }
+      function nudgeZoom(factor){
+        setCamDist(camDist() * factor);
+        syncZoomSlider();
+      }
+      if (zoomInBtn) zoomInBtn.addEventListener("click", function(){ nudgeZoom(0.86); });
+      if (zoomOutBtn) zoomOutBtn.addEventListener("click", function(){ nudgeZoom(1.16); });
+      /* 防下拉刷新 / 防页面滚动：仅允许卡片与面板内滚动 */
+      document.addEventListener("touchmove", function(e){
+        var t = e.target;
+        if (!t) return;
+        if (t.closest && t.closest("#detailScroll, #paramPanel .body, #legend .body, #search, #zoomRail, input, textarea")) return;
+        if (e.cancelable) e.preventDefault();
+      }, {passive:false});
+      var guardRoot = document.getElementById("graph") || document.body;
+      guardRoot.addEventListener("touchstart", function(e){
+        if (e.touches.length > 1){
+          touchGuard.multi = true;
+          touchGuard.suppressUntil = Date.now() + 450;
+          return;
+        }
+        touchGuard.moved = false;
+        touchGuard.sx = e.touches[0].clientX;
+        touchGuard.sy = e.touches[0].clientY;
+      }, {passive:true});
+      guardRoot.addEventListener("touchmove", function(e){
+        if (e.touches.length > 1){
+          touchGuard.multi = true;
+          touchGuard.suppressUntil = Date.now() + 450;
+          return;
+        }
+        if (!e.touches[0]) return;
+        var dx = e.touches[0].clientX - touchGuard.sx;
+        var dy = e.touches[0].clientY - touchGuard.sy;
+        if (dx * dx + dy * dy > 64) touchGuard.moved = true;
+      }, {passive:true});
+      guardRoot.addEventListener("touchend", function(){
+        if (touchGuard.moved || touchGuard.multi){
+          touchGuard.suppressUntil = Date.now() + 380;
+        }
+        setTimeout(function(){
+          touchGuard.multi = false;
+          touchGuard.moved = false;
+        }, 380);
+      }, {passive:true});
+      /* 旋转过程中暂时关掉标签点击，避免拖动画布误开卡片 */
+      labelLayer.style.pointerEvents = "none";
+      var _labelPeTimer = null;
+      guardRoot.addEventListener("touchstart", function(){
+        labelLayer.style.pointerEvents = "none";
+        if (_labelPeTimer) clearTimeout(_labelPeTimer);
+      }, {passive:true});
+      guardRoot.addEventListener("touchend", function(){
+        if (_labelPeTimer) clearTimeout(_labelPeTimer);
+        _labelPeTimer = setTimeout(function(){
+          if (!touchGuard.moved && !touchGuard.multi) labelLayer.style.pointerEvents = "auto";
+          else labelLayer.style.pointerEvents = "none";
+          setTimeout(function(){ labelLayer.style.pointerEvents = "auto"; }, 420);
+        }, 40);
+      }, {passive:true});
+      setTimeout(syncZoomSlider, 3200);
+      setInterval(function(){
+        if (document.hidden) return;
+        var el = document.getElementById("zoomSlider");
+        if (!el || document.activeElement === el) return;
+        syncZoomSlider();
+      }, 700);
+    } else {
+      controls.rotateSpeed = 1;
     }
 
     function playIntroZoom(){
@@ -3484,6 +3660,7 @@
         });
       });
       document.getElementById("detail").classList.add("open");
+      document.body.classList.add("detail-open");
     }
     (function(){
       var detailPanel = document.getElementById("detail");
@@ -3494,6 +3671,7 @@
     document.getElementById("detailClose").addEventListener("click", function(){
       sfxPlay("tick");
       document.getElementById("detail").classList.remove("open");
+      document.body.classList.remove("detail-open");
       if (_focusedNodeId && labelEls[_focusedNodeId]){
         labelEls[_focusedNodeId].classList.remove("focused");
       }
@@ -3683,18 +3861,33 @@
         hoverNode(null);
       });
       var labelTouchAt = 0;
+      var labelSx = 0, labelSy = 0, labelMoved = false;
       d.addEventListener("click", function(e){
         if (Date.now() - labelTouchAt < 420) return;
         e.stopPropagation();
         var nd = nodeById(n.id);
-        if (nd) clickNode(nd);
+        if (nd) safeActivateNode(nd);
       });
+      d.addEventListener("touchstart", function(e){
+        if (!e.touches[0]) return;
+        labelMoved = false;
+        labelSx = e.touches[0].clientX;
+        labelSy = e.touches[0].clientY;
+      }, {passive:true});
+      d.addEventListener("touchmove", function(e){
+        if (!e.touches[0]) return;
+        var dx = e.touches[0].clientX - labelSx;
+        var dy = e.touches[0].clientY - labelSy;
+        if (dx * dx + dy * dy > 64) labelMoved = true;
+      }, {passive:true});
       d.addEventListener("touchend", function(e){
         labelTouchAt = Date.now();
         e.preventDefault();
         e.stopPropagation();
+        if (labelMoved || touchGuard.moved || touchGuard.multi) return;
+        if (Date.now() < touchGuard.suppressUntil) return;
         var nd = nodeById(n.id);
-        if (nd) clickNode(nd);
+        if (nd) safeActivateNode(nd);
       }, {passive:false});
       labelLayer.appendChild(d);
       labelEls[n.id] = d;
