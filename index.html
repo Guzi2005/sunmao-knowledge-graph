@@ -445,51 +445,47 @@
   #navHint .mico{width:10px; height:14px; flex:none;}
   #navHint .nav-sep{opacity:.32; font-size:9px; line-height:1;}
 
-  /* 移动端侧边缩放滑杆（极简竖轨，无胶囊外壳） */
+  /* 移动端侧边缩放滑杆（真竖轨，命中区不伸出屏幕） */
   #zoomRail{
     display:none; position:fixed; z-index:16;
-    right:max(6px, env(safe-area-inset-right));
+    right:max(4px, env(safe-area-inset-right));
     top:50%; transform:translateY(-50%);
-    flex-direction:column; align-items:center; justify-content:center;
-    width:36px; height:min(62vh, 420px);
+    width:44px; height:min(86vh, 720px);
     padding:0; margin:0;
     background:transparent; border:none; box-shadow:none;
-    backdrop-filter:none; -webkit-backdrop-filter:none;
     touch-action:none; pointer-events:none;
   }
   #zoomRail .zoom-track-wrap{
-    flex:1 1 auto; min-height:0; width:100%; height:100%;
+    position:relative; width:100%; height:100%;
+    pointer-events:auto; touch-action:none;
     display:flex; align-items:center; justify-content:center;
-    pointer-events:auto;
   }
-  #zoomRail input[type=range]{
-    -webkit-appearance:none; appearance:none;
-    width:min(56vh, 380px); height:3px; margin:0;
-    transform:rotate(-90deg); transform-origin:center center;
-    background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.72));
-    border-radius:2px; outline:none; touch-action:none;
+  #zoomRail .zoom-track{
+    position:absolute; left:50%; top:8px; bottom:8px;
+    width:3px; transform:translateX(-50%);
+    border-radius:2px;
+    background:linear-gradient(180deg, rgba(201,162,39,.72), rgba(201,162,39,.22));
     box-shadow:0 0 0 1px rgba(0,0,0,.18);
+    pointer-events:none;
   }
-  #zoomRail input[type=range]::-webkit-slider-runnable-track{
-    height:3px; border-radius:2px;
-    background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.72));
-  }
-  #zoomRail input[type=range]::-moz-range-track{
-    height:3px; border-radius:2px; border:none;
-    background:linear-gradient(90deg, rgba(201,162,39,.22), rgba(201,162,39,.72));
-  }
-  #zoomRail input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none; width:16px; height:16px; margin-top:-6.5px;
+  #zoomRail .zoom-thumb{
+    position:absolute; left:50%; top:50%;
+    width:18px; height:18px; margin:-9px 0 0 -9px;
     border-radius:50%; border:1.5px solid rgba(233,220,192,.55);
-    background:rgba(201,162,39,.92); box-shadow:0 1px 6px rgba(0,0,0,.35); cursor:pointer;
+    background:rgba(201,162,39,.92); box-shadow:0 1px 6px rgba(0,0,0,.35);
+    pointer-events:none; will-change:top;
   }
-  #zoomRail input[type=range]::-moz-range-thumb{
-    width:16px; height:16px; border-radius:50%;
-    border:1.5px solid rgba(233,220,192,.55);
-    background:rgba(201,162,39,.92); box-shadow:0 1px 6px rgba(0,0,0,.35); cursor:pointer;
+  /* 隐藏原生 range，仅作取值容器 / a11y */
+  #zoomRail input[type=range]{
+    position:absolute; inset:0; opacity:0; margin:0; padding:0;
+    width:100%; height:100%;
+    -webkit-appearance:none; appearance:none;
+    pointer-events:none; /* 触控走自定义竖轨，避免原生控件抢事件 */
   }
   @media (pointer:coarse){
-    #zoomRail{display:flex;}
+    #zoomRail{display:block;}
+    /* 标签不抢触控：点选走 3D raycast，旋转/捏合才能落到画布 */
+    .node-label{pointer-events:none !important;}
   }
   @media(max-width:560px){
     #navHint{bottom:8px; padding:3px 8px; gap:5px; font-size:9px;}
@@ -567,7 +563,9 @@
   <div id="labels"></div>
 
   <div id="zoomRail" aria-label="缩放">
-    <div class="zoom-track-wrap">
+    <div class="zoom-track-wrap" id="zoomTrack">
+      <div class="zoom-track" aria-hidden="true"></div>
+      <div class="zoom-thumb" id="zoomThumb" aria-hidden="true"></div>
       <input type="range" id="zoomSlider" min="0" max="1000" value="500" step="1" aria-label="缩放滑杆" />
     </div>
   </div>
@@ -3071,6 +3069,15 @@
       var el = document.getElementById("zoomSlider");
       if (!el) return;
       el.value = String(distToSlider(camDist()));
+      var thumb = document.getElementById("zoomThumb");
+      var track = document.getElementById("zoomTrack");
+      if (thumb && track){
+        var rect = track.getBoundingClientRect();
+        var pad = 8;
+        var usable = Math.max(1, rect.height - pad * 2);
+        var t = Number(el.value) / 1000;
+        thumb.style.top = (pad + t * usable) + "px";
+      }
     }
     function safeActivateNode(node){
       if (!node) return;
@@ -3081,30 +3088,65 @@
       clickNode(node);
     }
     if (IS_COARSE){
-      controls.rotateSpeed = 0.72;
-      controls.panSpeed = 0.6;
-      controls.enableZoom = true; /* 双指捏合缩放 */
-      controls.zoomSpeed = 1.05;
+      controls.rotateSpeed = 0.78;
+      controls.panSpeed = 0.65;
+      controls.enableZoom = true;
+      controls.zoomSpeed = 1.1;
       if (THREE.TOUCH){
-        /* 单指旋转；双指捏合缩放 + 平移 */
         controls.touches = {
           ONE: THREE.TOUCH.ROTATE,
           TWO: THREE.TOUCH.DOLLY_PAN
         };
       }
       var zoomSlider = document.getElementById("zoomSlider");
+      var zoomTrack = document.getElementById("zoomTrack");
+      function applyZoomFromClientY(clientY){
+        if (!zoomTrack || !zoomSlider) return;
+        var rect = zoomTrack.getBoundingClientRect();
+        var pad = 8;
+        var usable = Math.max(1, rect.height - pad * 2);
+        var y = Math.max(0, Math.min(usable, clientY - rect.top - pad));
+        var v = Math.round((y / usable) * 1000);
+        zoomSlider.value = String(v);
+        setCamDist(sliderToDist(v));
+        syncZoomSlider();
+      }
       if (zoomSlider){
         zoomSlider.addEventListener("input", function(){
           setCamDist(sliderToDist(zoomSlider.value));
+          syncZoomSlider();
         });
-        zoomSlider.addEventListener("touchstart", function(e){ e.stopPropagation(); }, {passive:true});
-        zoomSlider.addEventListener("touchmove", function(e){ e.stopPropagation(); }, {passive:true});
       }
-      /* 防下拉刷新 / 防页面滚动：仅允许卡片与面板内滚动 */
+      if (zoomTrack){
+        var zoomDragging = false;
+        function onZoomPointerDown(e){
+          zoomDragging = true;
+          touchGuard.suppressUntil = Date.now() + 500;
+          var y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+          applyZoomFromClientY(y);
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
+        }
+        function onZoomPointerMove(e){
+          if (!zoomDragging) return;
+          var y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+          applyZoomFromClientY(y);
+          if (e.cancelable) e.preventDefault();
+          e.stopPropagation();
+        }
+        function onZoomPointerUp(){ zoomDragging = false; }
+        zoomTrack.addEventListener("touchstart", onZoomPointerDown, {passive:false});
+        zoomTrack.addEventListener("touchmove", onZoomPointerMove, {passive:false});
+        zoomTrack.addEventListener("touchend", onZoomPointerUp, {passive:true});
+        zoomTrack.addEventListener("touchcancel", onZoomPointerUp, {passive:true});
+        zoomTrack.addEventListener("mousedown", onZoomPointerDown);
+        window.addEventListener("mousemove", onZoomPointerMove);
+        window.addEventListener("mouseup", onZoomPointerUp);
+      }
       document.addEventListener("touchmove", function(e){
         var t = e.target;
         if (!t) return;
-        if (t.closest && t.closest("#detailScroll, #paramPanel .body, #legend .body, #search, #zoomRail, input, textarea")) return;
+        if (t.closest && t.closest("#graph, canvas, #detailScroll, #paramPanel .body, #legend .body, #search, #zoomRail, input, textarea")) return;
         if (e.cancelable) e.preventDefault();
       }, {passive:false});
       var guardRoot = document.getElementById("graph") || document.body;
@@ -3115,6 +3157,7 @@
           return;
         }
         touchGuard.moved = false;
+        touchGuard.multi = false;
         touchGuard.sx = e.touches[0].clientX;
         touchGuard.sy = e.touches[0].clientY;
       }, {passive:true});
@@ -3131,27 +3174,12 @@
       }, {passive:true});
       guardRoot.addEventListener("touchend", function(){
         if (touchGuard.moved || touchGuard.multi){
-          touchGuard.suppressUntil = Date.now() + 380;
+          touchGuard.suppressUntil = Date.now() + 280;
         }
         setTimeout(function(){
           touchGuard.multi = false;
           touchGuard.moved = false;
-        }, 380);
-      }, {passive:true});
-      /* 旋转过程中暂时关掉标签点击，避免拖动画布误开卡片 */
-      labelLayer.style.pointerEvents = "none";
-      var _labelPeTimer = null;
-      guardRoot.addEventListener("touchstart", function(){
-        labelLayer.style.pointerEvents = "none";
-        if (_labelPeTimer) clearTimeout(_labelPeTimer);
-      }, {passive:true});
-      guardRoot.addEventListener("touchend", function(){
-        if (_labelPeTimer) clearTimeout(_labelPeTimer);
-        _labelPeTimer = setTimeout(function(){
-          if (!touchGuard.moved && !touchGuard.multi) labelLayer.style.pointerEvents = "auto";
-          else labelLayer.style.pointerEvents = "none";
-          setTimeout(function(){ labelLayer.style.pointerEvents = "auto"; }, 420);
-        }, 40);
+        }, 280);
       }, {passive:true});
       setTimeout(syncZoomSlider, 3200);
       setInterval(function(){
