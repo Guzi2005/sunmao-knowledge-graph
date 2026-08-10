@@ -16,3 +16,8 @@ Thumbs.db
 # Local only
 *.log
 .cache/
+
+*.zip
+*.rar
+*.7z
+
