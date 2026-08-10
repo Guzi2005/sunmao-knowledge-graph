@@ -5,9 +5,8 @@
 **站点：** [tenennium.florescentmice.fun](https://tenennium.florescentmice.fun)
 
 <p align="center">
-  <img src="docs/screenshots/tenennium-overview.png" alt="Tenennium 总览" width="48%" />
-  &nbsp;
-  <img src="docs/screenshots/tenennium-graph.png" alt="Tenennium 图谱近景" width="48%" />
+  <img src="docs/screenshots/tenennium-overview.png" alt="Tenennium 总览" width="49%" />
+  <img src="docs/screenshots/tenennium-graph.png" alt="Tenennium 图谱近景" width="49%" />
 </p>
 
 ## 快速开始
