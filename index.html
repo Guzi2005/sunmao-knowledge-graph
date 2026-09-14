@@ -4,8 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Tenennium · 榫卯 · 木构千年</title>
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=3" />
-<link rel="apple-touch-icon" href="assets/favicon.svg?v=3" />
+<meta name="tenennium-build" content="20260914h" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=4" />
+<link rel="apple-touch-icon" href="assets/favicon.svg?v=4" />
 <link rel="preload" as="font" type="font/woff" crossorigin
   href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5.0.0/files/noto-sans-sc-chinese-simplified-700-normal.woff" />
 <link rel="preload" as="font" type="font/woff2" crossorigin
@@ -549,22 +550,22 @@
 
   /* ─── 响应式 v10 + 触屏 ─── */
   @media (pointer:coarse){
-    /* 菜单恢复参考尺寸；搜索胶囊仍略收 */
-    .panel-card .handle{min-height:44px; padding:10px 12px;}
+    /* 触控菜单：对齐参考图可读尺寸 */
+    .panel-card .handle{min-height:46px; padding:11px 14px;}
     .panel-card .handle .label,
-    .panel-card .handle h4{font-size:13px; letter-spacing:1px;}
-    .panel-card .handle .arr{font-size:10px;}
+    .panel-card .handle h4{font-size:14px; letter-spacing:1.2px;}
+    .panel-card .handle .arr{font-size:11px;}
     .panel-card{border-radius:10px;}
-    #leftPanels{max-width:250px; gap:6px;}
-    #legend .lrow{font-size:12px; gap:7px; padding:3px 0;}
-    #legend .ldot{width:10px; height:10px;}
+    #leftPanels{max-width:260px; gap:6px;}
+    #legend .lrow{font-size:13px; gap:8px; padding:4px 0;}
+    #legend .ldot{width:11px; height:11px;}
     #legend .hstep button{width:28px; height:28px;}
     #paramPanel .group{margin-bottom:8px;}
-    #paramPanel .group label{font-size:11px;}
-    #paramPanel .group label .val{font-size:10px;}
+    #paramPanel .group label{font-size:12px;}
+    #paramPanel .group label .val{font-size:11px;}
     #paramPanel .body-scroll{padding:0 12px 8px;}
     #paramPanel .btn-row{padding:8px 12px 12px; gap:6px;}
-    #paramPanel .btn-row button{font-size:11px; min-height:36px; padding:8px 0; border-radius:7px;}
+    #paramPanel .btn-row button{font-size:12px; min-height:38px; padding:8px 0; border-radius:7px;}
     #paramPanel .group input[type=range]::-webkit-slider-thumb{width:14px; height:14px;}
     #search input{
       width:min(200px, 34vw); padding:6px 10px; font-size:14px;
@@ -584,7 +585,7 @@
     #navHint .nav-touch{display:inline;}
     /* 居中于左侧菜单与右侧缩放滑杆之间的空隙 */
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 210px + 10px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 240px + 10px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 6px);
       bottom:max(10px, env(safe-area-inset-bottom));
       transform:none;
@@ -633,14 +634,14 @@
     #loading .splash-sub{font-size:13px; letter-spacing:1.5px;}
     #search input{width:min(140px, 32vw); font-size:14px; padding:6px 9px; border-radius:8px;}
     #search #searchBtn{width:38px; height:38px;}
-    #leftPanels{left:10px; bottom:10px; max-width:210px; gap:4px;
+    #leftPanels{left:10px; bottom:10px; max-width:240px; gap:5px;
       left:max(10px, env(safe-area-inset-left));
       bottom:max(10px, env(safe-area-inset-bottom));}
     #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
   }
   @media (max-width:560px) and (pointer:coarse){
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 180px + 8px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 200px + 8px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 4px);
     }
     #detail{
@@ -679,7 +680,7 @@
     #search input::placeholder{font-size:10px; font-style:italic;}
     #search #searchBtn{width:36px; height:36px;}
     #search #searchBtn svg{width:16px; height:16px;}
-    #leftPanels{max-width:180px;}
+    #leftPanels{max-width:200px;}
   }
   @media(max-width:480px){
     #topbar{padding:8px 4px 8px 10px;
@@ -775,6 +776,11 @@
     #topbar .title-zh-bake-v{display:none;}
     #search{grid-template-columns:1fr auto auto; grid-template-rows:auto;}
     #search #shareBtn{grid-column:3; grid-row:1; align-self:center;}
+    /* 平板图例区再放大一点，避免大屏上显得过小 */
+    #leftPanels{max-width:280px;}
+    .panel-card .handle .label,
+    .panel-card .handle h4{font-size:15px;}
+    #legend .lrow{font-size:14px;}
   }
 </style>
 </head>
@@ -1176,7 +1182,7 @@
   <!-- 库 -->
   <script src="assets/vendor/three.min.js"></script>
   <script src="assets/vendor/3d-force-graph.min.js"></script>
-  <script src="data/sunmao-graph.source.js?v=20260914f"></script>
+  <script src="data/sunmao-graph.source.js?v=20260914h"></script>
   <script src="data/province-outlines.js?v=20260810b"></script>
   <script src="data/liang-constellations.js?v=20260810n"></script>
   <script src="data/astro-constellations.js?v=20260810a"></script>
