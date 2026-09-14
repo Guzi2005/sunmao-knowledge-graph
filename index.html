@@ -71,7 +71,7 @@
   .node-label.hovered .nl-en{opacity:1;}
 
   /* 顶栏 */
-  #topbar{position:fixed; top:0; left:0; right:0; z-index:10; display:flex; align-items:flex-start;
+  #topbar{position:fixed; top:0; left:0; right:0; z-index:24; display:flex; align-items:flex-start;
     gap:16px; padding:14px 10px 14px 22px;
     padding-top:max(14px, env(safe-area-inset-top));
     padding-left:max(22px, env(safe-area-inset-left));
@@ -451,7 +451,11 @@
   body.app-ready #navHint{pointer-events:none; transition:opacity .55s ease;}
   body.app-ready #navHint.is-busy{opacity:0; transition:opacity .2s ease;}
   @media (pointer:coarse){
-    body.app-ready #zoomRail{opacity:1; pointer-events:auto;}
+    body.app-ready #zoomRail{
+      opacity:.34; pointer-events:auto;
+      transition:opacity .55s ease;
+    }
+    body.app-ready #zoomRail.is-active{opacity:1; transition:opacity .18s ease;}
     body.app-ready.detail-open #zoomRail,
     body.app-ready:has(#detail.open) #zoomRail{opacity:0; pointer-events:none;}
     body.app-ready.detail-open #shareBtn,
@@ -523,6 +527,12 @@
     #zoomRail{display:block;}
     /* 标签不抢触控：点选走 3D raycast，旋转/捏合才能落到画布 */
     .node-label{pointer-events:none !important;}
+    /* 顶栏（含搜索/二维码）压过右侧滑杆；右侧留出滑杆命中带 */
+    #topbar{
+      z-index:24;
+      padding-right:max(52px, calc(env(safe-area-inset-right) + 48px));
+    }
+    #search #shareBtn{z-index:25; position:relative;}
   }
   @media(max-width:560px){
     #navHint{bottom:8px; gap:5px; font-size:9px;}
@@ -695,18 +705,34 @@
     #search #shareBtn svg{width:24px; height:24px;}
     #qrModal .qr-close{width:52px; height:52px;}
   }
-  /* 移动端：得意黑改烘焙图 */
+  /* 移动端：得意黑改烘焙图；字号对齐原先 68 / 56 / 52 */
   @media (max-width:768px) and (pointer:coarse){
     #topbar .title{text-shadow:none; max-width:none;}
     #topbar .title-zh{display:none !important;}
-    #topbar .title-zh-bake-h{display:block; height:clamp(36px, 9vw, 56px); width:auto; max-width:min(58vw, 420px);}
+    #topbar .title-zh-bake-h{
+      display:block; height:68px; width:auto;
+      max-width:min(58vw, 520px);
+    }
     #topbar .title-zh-bake-v{display:none;}
+  }
+  @media (max-width:560px) and (pointer:coarse){
+    #topbar .title-zh-bake-h{height:56px;}
+  }
+  @media (max-width:480px) and (pointer:coarse){
+    #topbar .title-zh-bake-h{height:52px;}
   }
   @media (max-width:640px) and (orientation:portrait) and (pointer:coarse){
     #topbar .title-zh-bake-h{display:none;}
     #topbar .title-zh-bake-v{
-      display:block; height:clamp(120px, 34vw, 188px); width:auto; max-width:42vw;
+      display:block; height:auto; width:calc(2 * 68px);
+      max-width:min(46vw, 160px);
     }
+  }
+  @media (max-width:560px) and (orientation:portrait) and (pointer:coarse){
+    #topbar .title-zh-bake-v{width:calc(2 * 56px); max-width:min(44vw, 140px);}
+  }
+  @media (max-width:480px) and (orientation:portrait) and (pointer:coarse){
+    #topbar .title-zh-bake-v{width:calc(2 * 52px); max-width:min(42vw, 130px);}
   }
 </style>
 </head>
@@ -3505,8 +3531,21 @@
       }
       if (zoomTrack){
         var zoomDragging = false;
+        var zoomRailEl = document.getElementById("zoomRail");
+        var zoomIdleTimer = null;
+        var ZOOM_IDLE_MS = 1600;
+        function markZoomActive(){
+          if (!zoomRailEl) return;
+          zoomRailEl.classList.add("is-active");
+          if (zoomIdleTimer) clearTimeout(zoomIdleTimer);
+          zoomIdleTimer = setTimeout(function(){
+            zoomRailEl.classList.remove("is-active");
+            zoomIdleTimer = null;
+          }, ZOOM_IDLE_MS);
+        }
         function onZoomPointerDown(e){
           zoomDragging = true;
+          markZoomActive();
           touchGuard.suppressUntil = Date.now() + 500;
           var y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
           applyZoomFromClientY(y);
@@ -3515,12 +3554,16 @@
         }
         function onZoomPointerMove(e){
           if (!zoomDragging) return;
+          markZoomActive();
           var y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
           applyZoomFromClientY(y);
           if (e.cancelable) e.preventDefault();
           e.stopPropagation();
         }
-        function onZoomPointerUp(){ zoomDragging = false; }
+        function onZoomPointerUp(){
+          zoomDragging = false;
+          markZoomActive();
+        }
         zoomTrack.addEventListener("touchstart", onZoomPointerDown, {passive:false});
         zoomTrack.addEventListener("touchmove", onZoomPointerMove, {passive:false});
         zoomTrack.addEventListener("touchend", onZoomPointerUp, {passive:true});
