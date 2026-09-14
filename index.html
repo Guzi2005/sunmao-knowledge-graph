@@ -90,20 +90,29 @@
   #topbar .title-row:nth-child(2) .dot{display:none;}
   #topbar .title small{display:block; font-family:var(--font-furion); font-size:16px; letter-spacing:2.5px; color:var(--jin);
     font-weight:600; opacity:.9; margin-top:5px; font-style:italic;}
-  #search{margin-left:auto; display:flex; gap:6px; align-items:center; flex-shrink:0;}
+  #search{margin-left:auto; display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto;
+    gap:6px; align-items:center; flex-shrink:0;}
   #search input{width:260px; padding:8px 12px; border:1px solid var(--panelBorder);
     background:var(--panelBg); color:var(--paper); border-radius:10px;
-    font-family:var(--font-base); font-size:13px; outline:none; transition:border-color .2s;}
+    font-family:var(--font-base); font-size:13px; outline:none; transition:border-color .2s;
+    grid-column:1; grid-row:1;}
   #search input:focus{border-color:var(--jin);}
   #search input::placeholder{
     color:rgba(233,220,192,.42);
     font-size:11px; font-style:italic; letter-spacing:.3px;
   }
-  #search button{border:1px solid var(--panelBorder); border-radius:10px; cursor:pointer;
+  #search #searchBtn{border:1px solid var(--panelBorder); border-radius:10px; cursor:pointer;
     background:var(--panelBg); color:var(--jin); font-size:18px; line-height:1;
     box-shadow:0 0 10px rgba(201,162,39,.25); transition:all .2s;
-    width:40px; height:40px; display:flex; align-items:center; justify-content:center;}
-  #search button:hover{background:rgba(201,162,39,.12); box-shadow:0 0 18px rgba(201,162,39,.5); color:#fff;}
+    width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    grid-column:2; grid-row:1;}
+  #search #searchBtn:hover{background:rgba(201,162,39,.12); box-shadow:0 0 18px rgba(201,162,39,.5); color:#fff;}
+  #search #shareBtn{
+    grid-column:2; grid-row:2; justify-self:center; align-self:start;
+    width:40px; height:40px; margin:0; padding:0;
+    position:relative; right:auto; bottom:auto; z-index:11;
+  }
+  #search #shareBtn svg{width:22px; height:22px;}
 
   /* ─── 左侧面板组：flex column，展开推开下方 —— v9 统一样式 ─── */
   #leftPanels{
@@ -523,7 +532,7 @@
   /* ─── 响应式 v10 + 触屏 ─── */
   @media (pointer:coarse){
     .panel-card .handle{min-height:44px; padding:10px 12px;}
-    #search button{min-width:44px; min-height:44px;}
+    #search #searchBtn{min-width:44px; min-height:44px;}
     #detail .close{width:44px; height:44px; display:flex; align-items:center; justify-content:center;}
     .node-label{padding:5px 8px; min-height:36px;}
     .rel-chip{padding:7px 12px; min-height:32px;}
@@ -582,7 +591,7 @@
     #loading .splash-line{font-size:68px; letter-spacing:4px; flex-wrap:nowrap;}
     #loading .splash-sub{font-size:13px; letter-spacing:1.5px;}
     #search input{width:min(160px, 36vw); font-size:16px;}
-    #search button{width:44px; height:44px;}
+    #search #searchBtn{width:44px; height:44px;}
     #leftPanels{left:10px; bottom:10px; max-width:210px; gap:4px;
       left:max(10px, env(safe-area-inset-left));
       bottom:max(10px, env(safe-area-inset-bottom));}
@@ -627,8 +636,8 @@
     #loading .splash-sub{font-size:11px;}
     #search input{width:min(140px, 34vw); font-size:16px; padding:8px 10px;}
     #search input::placeholder{font-size:12px; font-style:italic;}
-    #search button{width:44px; height:44px;}
-    #search button svg{width:18px; height:18px;}
+    #search #searchBtn{width:44px; height:44px;}
+    #search #searchBtn svg{width:18px; height:18px;}
     #leftPanels{max-width:180px;}
   }
   @media(max-width:480px){
@@ -640,10 +649,6 @@
 
   /* ─── 分享二维码按钮 + 弹层 ─── */
   #shareBtn{
-    position:fixed; z-index:46;
-    right:max(22px, env(safe-area-inset-right));
-    bottom:max(56px, calc(env(safe-area-inset-bottom) + 48px));
-    width:48px; height:48px; padding:0; margin:0;
     border:none; border-radius:0; background:transparent;
     box-shadow:none; outline:none;
     cursor:pointer; display:flex; align-items:center; justify-content:center;
@@ -686,12 +691,8 @@
   #qrModal .qr-close:hover{background:rgba(40,32,22,.55); color:#fff;}
   #qrModal .qr-close:active{transform:scale(.94);}
   @media (pointer:coarse){
-    #shareBtn{
-      right:max(52px, calc(env(safe-area-inset-right) + 40px));
-      bottom:max(72px, calc(env(safe-area-inset-bottom) + 64px));
-      width:52px; height:52px;
-    }
-    #shareBtn svg{width:30px; height:30px;}
+    #search #shareBtn{width:44px; height:44px;}
+    #search #shareBtn svg{width:24px; height:24px;}
     #qrModal .qr-close{width:52px; height:52px;}
   }
   /* 移动端：得意黑改烘焙图 */
@@ -712,23 +713,6 @@
 <body>
   <div id="graph"></div>
   <div id="labels"></div>
-
-
-  <button type="button" id="shareBtn" title="分享站点二维码" aria-label="分享站点二维码">
-    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <rect x="8" y="8" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
-      <rect x="13.5" y="13.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
-      <rect x="36" y="8" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
-      <rect x="41.5" y="13.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
-      <rect x="8" y="36" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
-      <rect x="13.5" y="41.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
-      <rect x="36" y="36" width="8" height="8" fill="#C9A227"/>
-      <rect x="48" y="36" width="8" height="8" fill="#C9A227"/>
-      <rect x="36" y="48" width="8" height="8" fill="#C9A227"/>
-      <rect x="44" y="44" width="8" height="8" fill="#C9A227"/>
-      <rect x="52" y="52" width="4" height="4" fill="#C9A227"/>
-    </svg>
-  </button>
 
   <div id="qrModal" aria-hidden="true" role="dialog" aria-label="站点二维码">
     <div class="qr-stage">
@@ -801,6 +785,21 @@
           <path d="M1024 320h-256V288H256V256H0V64h256V32h512V0h256z m-192-64h128V64h-128v32H320v32H64v64h256v32h512z"/>
           <path d="M768 64h64v192h-64zM256 96h64v128H256zM128 608a128 128 0 1 1 128-128 128 128 0 0 1-128 128z m0-192a64 64 0 1 0 64 64 64 64 0 0 0-64-64zM864 384h64v192h-64z"/>
           <path d="M800 448h192v64h-192z"/>
+        </svg>
+      </button>
+      <button type="button" id="shareBtn" title="分享站点二维码" aria-label="分享站点二维码">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect x="8" y="8" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
+          <rect x="13.5" y="13.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
+          <rect x="36" y="8" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
+          <rect x="41.5" y="13.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
+          <rect x="8" y="36" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
+          <rect x="13.5" y="41.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
+          <rect x="36" y="36" width="8" height="8" fill="#C9A227"/>
+          <rect x="48" y="36" width="8" height="8" fill="#C9A227"/>
+          <rect x="36" y="48" width="8" height="8" fill="#C9A227"/>
+          <rect x="44" y="44" width="8" height="8" fill="#C9A227"/>
+          <rect x="52" y="52" width="4" height="4" fill="#C9A227"/>
         </svg>
       </button>
     </div>
