@@ -76,10 +76,12 @@
     padding-top:max(14px, env(safe-area-inset-top));
     padding-left:max(22px, env(safe-area-inset-left));
     padding-right:max(10px, env(safe-area-inset-right));
-    background:linear-gradient(180deg, rgba(10,8,6,.88), rgba(10,8,6,0));}
+    background:linear-gradient(180deg, rgba(10,8,6,.88), rgba(10,8,6,0));
+    pointer-events:none;}
   #topbar .title{font-family:var(--font-smiley); font-size:68px; font-weight:700; color:var(--paper);
     text-shadow:0 0 22px rgba(201,162,39,.55), 0 0 40px rgba(201,162,39,.2); line-height:1.05; letter-spacing:6px;
-    white-space:normal; word-break:keep-all; max-width:50vw;}
+    white-space:normal; word-break:keep-all; max-width:50vw;
+    pointer-events:none;}
   #topbar .title-zh{display:inline; letter-spacing:inherit;}
   #topbar .title-zh-bake{display:none; height:auto; width:auto; max-width:min(52vw, 520px);
     pointer-events:none; user-select:none; -webkit-user-drag:none;}
@@ -90,8 +92,8 @@
   #topbar .title-row:nth-child(2) .dot{display:none;}
   #topbar .title small{display:block; font-family:var(--font-furion); font-size:16px; letter-spacing:2.5px; color:var(--jin);
     font-weight:600; opacity:.9; margin-top:5px; font-style:italic;}
-  #search{margin-left:auto; display:grid; grid-template-columns:1fr auto; grid-template-rows:auto auto;
-    gap:6px; align-items:center; flex-shrink:0;}
+  #search{margin-left:auto; display:grid; grid-template-columns:1fr auto auto; grid-template-rows:auto;
+    gap:6px; align-items:center; flex-shrink:0; pointer-events:auto;}
   #search input{width:260px; padding:8px 12px; border:1px solid var(--panelBorder);
     background:var(--panelBg); color:var(--paper); border-radius:10px;
     font-family:var(--font-base); font-size:13px; outline:none; transition:border-color .2s;
@@ -107,8 +109,9 @@
     width:40px; height:40px; display:flex; align-items:center; justify-content:center;
     grid-column:2; grid-row:1;}
   #search #searchBtn:hover{background:rgba(201,162,39,.12); box-shadow:0 0 18px rgba(201,162,39,.5); color:#fff;}
+  /* 二维码始终在搜索键右侧 */
   #search #shareBtn{
-    grid-column:2; grid-row:2; justify-self:center; align-self:start;
+    grid-column:3; grid-row:1; justify-self:center; align-self:center;
     width:40px; height:40px; margin:0; padding:0;
     position:relative; right:auto; bottom:auto; z-index:11;
   }
@@ -116,7 +119,7 @@
 
   /* ─── 左侧面板组：flex column，展开推开下方 —— v9 统一样式 ─── */
   #leftPanels{
-    position:fixed; left:18px; bottom:18px; z-index:22;
+    position:fixed; left:18px; bottom:18px; z-index:28;
     left:max(18px, env(safe-area-inset-left));
     bottom:max(18px, env(safe-area-inset-bottom));
     max-width:250px; display:flex; flex-direction:column; gap:6px;
@@ -200,7 +203,7 @@
   #legend .ldot{width:10px; height:10px; border-radius:50%; flex:none; box-shadow:0 0 6px currentColor; transition:all .25s;}
 
   /* 右侧详情（毛玻璃 80% 不透明 · 卡片内允许选中文字） */
-  #detail{position:fixed; top:0; right:0; height:100%; width:380px; z-index:20;
+  #detail{position:fixed; top:0; right:0; height:100%; width:380px; z-index:50;
     background:linear-gradient(205deg,
       rgba(38,28,18,.80) 0%,
       rgba(24,17,11,.80) 55%,
@@ -446,7 +449,12 @@
   /* 主界面：加载完成后淡入 */
   #topbar,#leftPanels,#search,#detail,#navHint,#zoomRail,#shareBtn{opacity:0; transition:opacity .7s ease .15s; pointer-events:none;}
   body.app-ready #topbar,body.app-ready #leftPanels,body.app-ready #search,body.app-ready #detail,body.app-ready #navHint,body.app-ready #shareBtn{
-    opacity:1; pointer-events:auto;}
+    opacity:1;}
+  body.app-ready #leftPanels,body.app-ready #search,body.app-ready #detail,body.app-ready #shareBtn{
+    pointer-events:auto;}
+  /* 顶栏本身不抢点击（避免挡左侧菜单），仅搜索区可点 */
+  body.app-ready #topbar{pointer-events:none;}
+  body.app-ready #topbar #search{pointer-events:auto;}
   body.app-ready #detail.open{pointer-events:auto;}
   body.app-ready #navHint{pointer-events:none; transition:opacity .55s ease;}
   body.app-ready #navHint.is-busy{opacity:0; transition:opacity .2s ease;}
@@ -541,19 +549,41 @@
 
   /* ─── 响应式 v10 + 触屏 ─── */
   @media (pointer:coarse){
-    .panel-card .handle{min-height:44px; padding:10px 12px;}
-    #search #searchBtn{min-width:44px; min-height:44px;}
+    .panel-card .handle{min-height:38px; padding:7px 10px;}
+    .panel-card .handle .label,
+    .panel-card .handle h4{font-size:11.5px; letter-spacing:1px;}
+    .panel-card .handle .arr{font-size:9px;}
+    .panel-card{border-radius:8px;}
+    #leftPanels{max-width:200px; gap:4px;}
+    #legend .lrow{font-size:11px; gap:6px; padding:2px 0;}
+    #legend .ldot{width:8px; height:8px;}
+    #legend .hstep button{width:22px; height:22px; font-size:10px;}
+    #paramPanel .group{margin-bottom:6px;}
+    #paramPanel .group label{font-size:10px;}
+    #paramPanel .group label .val{font-size:9px;}
+    #paramPanel .body-scroll{padding:0 10px 6px;}
+    #paramPanel .btn-row{padding:6px 10px 10px; gap:5px;}
+    #paramPanel .btn-row button{font-size:10px; min-height:32px; padding:6px 0; border-radius:6px;}
+    #paramPanel .group input[type=range]::-webkit-slider-thumb{width:12px; height:12px;}
+    #search input{
+      width:min(200px, 34vw); padding:6px 10px; font-size:14px;
+      border-radius:8px;
+    }
+    #search input::placeholder{font-size:11px;}
+    #search #searchBtn{min-width:38px; min-height:38px; width:38px; height:38px; border-radius:8px;}
+    #search #searchBtn svg{width:17px; height:17px;}
+    #search #shareBtn{width:38px; height:38px;}
+    #search #shareBtn svg{width:20px; height:20px;}
     #detail .close{width:44px; height:44px; display:flex; align-items:center; justify-content:center;}
     .node-label{padding:5px 8px; min-height:36px;}
     .rel-chip{padding:7px 12px; min-height:32px;}
-    #legend .hstep button{width:28px; height:28px;}
   }
   @media (max-width:768px) and (pointer:coarse){
     #navHint .nav-mouse{display:none;}
     #navHint .nav-touch{display:inline;}
     /* 居中于左侧菜单与右侧缩放滑杆之间的空隙 */
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 210px + 10px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 168px + 10px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 6px);
       bottom:max(10px, env(safe-area-inset-bottom));
       transform:none;
@@ -600,16 +630,16 @@
     #loading{padding:18px 12px;}
     #loading .splash-line{font-size:68px; letter-spacing:4px; flex-wrap:nowrap;}
     #loading .splash-sub{font-size:13px; letter-spacing:1.5px;}
-    #search input{width:min(160px, 36vw); font-size:16px;}
-    #search #searchBtn{width:44px; height:44px;}
-    #leftPanels{left:10px; bottom:10px; max-width:210px; gap:4px;
+    #search input{width:min(140px, 32vw); font-size:14px; padding:6px 9px; border-radius:8px;}
+    #search #searchBtn{width:38px; height:38px;}
+    #leftPanels{left:10px; bottom:10px; max-width:168px; gap:3px;
       left:max(10px, env(safe-area-inset-left));
       bottom:max(10px, env(safe-area-inset-bottom));}
     #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
   }
   @media (max-width:560px) and (pointer:coarse){
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 180px + 8px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 168px + 8px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 4px);
     }
     #detail{
@@ -644,17 +674,17 @@
     #topbar .title small{font-size:11px;}
     #loading .splash-line{font-size:min(56px, 11vw); letter-spacing:2px; flex-wrap:nowrap;}
     #loading .splash-sub{font-size:11px;}
-    #search input{width:min(140px, 34vw); font-size:16px; padding:8px 10px;}
-    #search input::placeholder{font-size:12px; font-style:italic;}
-    #search #searchBtn{width:44px; height:44px;}
-    #search #searchBtn svg{width:18px; height:18px;}
-    #leftPanels{max-width:180px;}
+    #search input{width:min(120px, 30vw); font-size:14px; padding:5px 8px; border-radius:8px;}
+    #search input::placeholder{font-size:10px; font-style:italic;}
+    #search #searchBtn{width:36px; height:36px;}
+    #search #searchBtn svg{width:16px; height:16px;}
+    #leftPanels{max-width:156px;}
   }
   @media(max-width:480px){
     #topbar{padding:8px 4px 8px 10px;
       padding-left:max(10px, env(safe-area-inset-left));}
     #topbar .title{font-size:52px;}
-    #search input{width:min(120px, 32vw);}
+    #search input{width:min(108px, 28vw);}
   }
 
   /* ─── 分享二维码按钮 + 弹层 ─── */
@@ -701,19 +731,20 @@
   #qrModal .qr-close:hover{background:rgba(40,32,22,.55); color:#fff;}
   #qrModal .qr-close:active{transform:scale(.94);}
   @media (pointer:coarse){
-    #search #shareBtn{width:44px; height:44px;}
-    #search #shareBtn svg{width:24px; height:24px;}
+    #search #shareBtn{width:38px; height:38px;}
+    #search #shareBtn svg{width:20px; height:20px;}
     #qrModal .qr-close{width:52px; height:52px;}
   }
-  /* 移动端：得意黑改烘焙图；字号对齐原先 68 / 56 / 52 */
-  @media (max-width:768px) and (pointer:coarse){
+  /* 触控端标题：手机竖屏两字一行；平板/横屏横排（对齐旧版） */
+  @media (pointer:coarse){
     #topbar .title{text-shadow:none; max-width:none;}
     #topbar .title-zh{display:none !important;}
     #topbar .title-zh-bake-h{
       display:block; height:68px; width:auto;
-      max-width:min(58vw, 520px);
+      max-width:min(52vw, 520px);
     }
     #topbar .title-zh-bake-v{display:none;}
+    #topbar .title small{margin-top:8px; max-width:min(52vw, 280px); line-height:1.35;}
   }
   @media (max-width:560px) and (pointer:coarse){
     #topbar .title-zh-bake-h{height:56px;}
@@ -721,7 +752,8 @@
   @media (max-width:480px) and (pointer:coarse){
     #topbar .title-zh-bake-h{height:52px;}
   }
-  @media (max-width:640px) and (orientation:portrait) and (pointer:coarse){
+  /* 手机竖屏：榫卯 / ·木 / 构千 / 年 */
+  @media (max-width:767px) and (orientation:portrait) and (pointer:coarse){
     #topbar .title-zh-bake-h{display:none;}
     #topbar .title-zh-bake-v{
       display:block; height:auto; width:calc(2 * 68px);
@@ -733,6 +765,15 @@
   }
   @media (max-width:480px) and (orientation:portrait) and (pointer:coarse){
     #topbar .title-zh-bake-v{width:calc(2 * 52px); max-width:min(42vw, 130px);}
+  }
+  /* 平板：横排标题略放大，二维码保持搜索键右侧 */
+  @media (min-width:768px) and (pointer:coarse){
+    #topbar .title-zh-bake-h{
+      height:72px; max-width:min(48vw, 560px);
+    }
+    #topbar .title-zh-bake-v{display:none;}
+    #search{grid-template-columns:1fr auto auto; grid-template-rows:auto;}
+    #search #shareBtn{grid-column:3; grid-row:1; align-self:center;}
   }
 </style>
 </head>
