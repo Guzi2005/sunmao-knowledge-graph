@@ -644,53 +644,55 @@
     right:max(22px, env(safe-area-inset-right));
     bottom:max(56px, calc(env(safe-area-inset-bottom) + 48px));
     width:48px; height:48px; padding:0; margin:0;
-    border-radius:12px; border:1px solid rgba(201,162,39,.42);
-    background:rgba(22,17,12,.88);
-    box-shadow:0 0 16px rgba(201,162,39,.22), 0 8px 24px rgba(0,0,0,.4);
+    border:none; border-radius:0; background:transparent;
+    box-shadow:none; outline:none;
     cursor:pointer; display:flex; align-items:center; justify-content:center;
-    transition:border-color .2s, box-shadow .2s, background .2s, transform .15s;
+    transition:opacity .2s, transform .15s, filter .2s;
+    filter:drop-shadow(0 0 8px rgba(201,162,39,.28));
   }
-  #shareBtn:hover{border-color:var(--jin); background:rgba(201,162,39,.14);
-    box-shadow:0 0 22px rgba(201,162,39,.38), 0 8px 24px rgba(0,0,0,.45);}
-  #shareBtn:active{transform:scale(.96);}
-  #shareBtn svg{width:26px; height:26px; display:block;}
+  #shareBtn:hover{filter:drop-shadow(0 0 12px rgba(201,162,39,.55)); opacity:1;}
+  #shareBtn:active{transform:scale(.94);}
+  #shareBtn:focus-visible{outline:1px solid rgba(201,162,39,.45); outline-offset:4px;}
+  #shareBtn svg{width:28px; height:28px; display:block;}
   #qrModal{
     position:fixed; inset:0; z-index:80; display:flex; align-items:center; justify-content:center;
     padding:max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
-    background:rgba(6,4,2,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    background:rgba(6,4,2,.62); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     opacity:0; pointer-events:none; transition:opacity .28s ease;
   }
   #qrModal.open{opacity:1; pointer-events:auto;}
-  #qrModal .qr-panel{
-    position:relative; width:min(92vw, 360px);
-    padding:28px 22px 24px; border-radius:16px;
-    background:linear-gradient(205deg, rgba(38,28,18,.94), rgba(18,13,9,.96));
-    border:1px solid rgba(201,162,39,.38);
-    box-shadow:0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,248,235,.05) inset;
-    text-align:center;
+  #qrModal .qr-stage{
+    display:flex; flex-direction:column; align-items:center; gap:22px;
+    background:none; border:none; box-shadow:none; padding:0; margin:0;
   }
-  #qrModal .qr-close{
-    position:absolute; top:8px; right:10px; width:36px; height:36px;
-    border:none; background:transparent; color:rgba(233,220,192,.7);
-    font-size:26px; line-height:1; cursor:pointer; border-radius:8px;
-  }
-  #qrModal .qr-close:hover{color:#fff; background:rgba(201,162,39,.12);}
-  #qrModal h3{font-family:var(--font-furion); font-size:18px; letter-spacing:2px; color:var(--jin); margin:0 0 4px;}
-  #qrModal p{font-size:11px; color:rgba(233,220,192,.55); letter-spacing:.4px; margin:0 0 14px; word-break:break-all;}
   #qrModal .qr-glow{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:8px; border-radius:12px; background:rgba(0,0,0,.35);
+    display:flex; align-items:center; justify-content:center;
+    padding:0; background:none; border:none;
   }
   #qrModal .qr-glow img{
-    width:min(240px, 68vw); height:auto; display:block;
-    filter:drop-shadow(0 0 6px rgba(201,162,39,.28)) drop-shadow(0 0 14px rgba(201,162,39,.12));
+    width:min(260px, 72vw); height:auto; display:block;
+    filter:drop-shadow(0 0 8px rgba(201,162,39,.32)) drop-shadow(0 0 20px rgba(201,162,39,.14));
   }
+  #qrModal .qr-close{
+    width:48px; height:48px; border-radius:50%; border:none;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:rgba(233,220,192,.88); font-size:22px; line-height:1;
+    background:rgba(28,22,16,.42);
+    backdrop-filter:blur(16px) saturate(1.35);
+    -webkit-backdrop-filter:blur(16px) saturate(1.35);
+    box-shadow:0 8px 28px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,248,235,.12);
+    transition:background .2s, color .2s, transform .15s;
+  }
+  #qrModal .qr-close:hover{background:rgba(40,32,22,.55); color:#fff;}
+  #qrModal .qr-close:active{transform:scale(.94);}
   @media (pointer:coarse){
     #shareBtn{
       right:max(52px, calc(env(safe-area-inset-right) + 40px));
       bottom:max(72px, calc(env(safe-area-inset-bottom) + 64px));
       width:52px; height:52px;
     }
+    #shareBtn svg{width:30px; height:30px;}
+    #qrModal .qr-close{width:52px; height:52px;}
   }
   /* 移动端：得意黑改烘焙图 */
   @media (max-width:768px) and (pointer:coarse){
@@ -714,24 +716,26 @@
 
   <button type="button" id="shareBtn" title="分享站点二维码" aria-label="分享站点二维码">
     <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <path d="M12 54 L32 28 L52 54" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M32 28 V56" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round"/>
-      <rect x="14" y="14" width="36" height="12" rx="2.5" stroke="#C9A227" stroke-width="2.4"/>
-      <path d="M20 14 V26 M26 14 V26 M44 14 V26" stroke="#C9A227" stroke-width="2" stroke-linecap="round"/>
-      <path d="M50 20 H58" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round"/>
-      <circle cx="18" cy="48" r="2.2" stroke="#C9A227" stroke-width="1.8"/>
-      <path d="M44 45.5 H50 M47 42.5 V48.5" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round"/>
+      <rect x="8" y="8" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
+      <rect x="13.5" y="13.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
+      <rect x="36" y="8" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
+      <rect x="41.5" y="13.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
+      <rect x="8" y="36" width="20" height="20" rx="2.5" stroke="#C9A227" stroke-width="2.6"/>
+      <rect x="13.5" y="41.5" width="9" height="9" rx="1.2" fill="#C9A227"/>
+      <rect x="36" y="36" width="8" height="8" fill="#C9A227"/>
+      <rect x="48" y="36" width="8" height="8" fill="#C9A227"/>
+      <rect x="36" y="48" width="8" height="8" fill="#C9A227"/>
+      <rect x="44" y="44" width="8" height="8" fill="#C9A227"/>
+      <rect x="52" y="52" width="4" height="4" fill="#C9A227"/>
     </svg>
   </button>
 
   <div id="qrModal" aria-hidden="true" role="dialog" aria-label="站点二维码">
-    <div class="qr-panel">
-      <button type="button" class="qr-close" id="qrClose" aria-label="关闭">×</button>
-      <h3>Tenennium</h3>
-      <p>tenennium.fluorescentmice.fun</p>
+    <div class="qr-stage">
       <div class="qr-glow">
         <img src="assets/qr-tenennium-glow.png" alt="Tenennium 站点二维码" width="260" height="260" />
       </div>
+      <button type="button" class="qr-close" id="qrClose" aria-label="关闭">×</button>
     </div>
   </div>
 
@@ -1546,114 +1550,182 @@
     }
 
     /**
-     * 朝代彩蛋（水晶球音乐盒挂载模式）：
-     * 半透明球壳 + 木座内嵌「双鸟朝阳」石碑——河姆渡牙雕标志纹样的低模示意。
-     * 仅 hemudu 节点使用；面数控制在约 1.5k 以内，移动端可接受。
+     * 河姆渡彩蛋：外形与朝代一致（半透明金八面体），
+     * 内部嵌「猪纹黑陶钵」低模示意（河姆渡猪纹陶钵）。
      */
-    function makeLandmarkPartMat(hex, emissive, opacity){
-      var c = new THREE.Color(hex);
-      return new THREE.MeshStandardMaterial({
-        color: c, emissive: c, emissiveIntensity: emissive == null ? 0.55 : emissive,
-        metalness: 0.28, roughness: 0.38, transparent: true, opacity: opacity == null ? 0.96 : opacity
-      });
+    function makeHemuduPigTexture(){
+      var c = document.createElement("canvas");
+      c.width = 512; c.height = 320;
+      var ctx = c.getContext("2d");
+      ctx.clearRect(0, 0, 512, 320);
+      /* 略带陶面底噪，便于与黑陶融合 */
+      ctx.fillStyle = "rgba(18,16,14,0.92)";
+      ctx.fillRect(0, 0, 512, 320);
+      ctx.strokeStyle = "rgba(232,224,208,0.92)";
+      ctx.lineWidth = 3.2;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      function strokePoly(pts, close){
+        if (!pts.length) return;
+        ctx.beginPath();
+        ctx.moveTo(pts[0][0], pts[0][1]);
+        for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+        if (close) ctx.closePath();
+        ctx.stroke();
+      }
+      /* 猪身轮廓（朝左） */
+      strokePoly([
+        [420, 170], [400, 118], [360, 95], [300, 88], [230, 95],
+        [170, 120], [130, 150], [95, 175], [78, 195], [95, 210],
+        [140, 218], [210, 225], [290, 228], [360, 218], [405, 200], [425, 185]
+      ], true);
+      /* 吻部与獠牙 */
+      strokePoly([[95, 175], [48, 188], [55, 198], [92, 200]], false);
+      strokePoly([[78, 195], [52, 208]], false);
+      strokePoly([[88, 208], [60, 218]], false);
+      /* 耳 */
+      strokePoly([[150, 120], [138, 78], [168, 105]], true);
+      strokePoly([[175, 112], [188, 72], [198, 108]], true);
+      /* 眼 */
+      ctx.beginPath(); ctx.arc(128, 168, 16, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(128, 168, 5, 0, Math.PI * 2); ctx.fillStyle = "rgba(232,224,208,0.9)"; ctx.fill();
+      ctx.strokeStyle = "rgba(232,224,208,0.92)";
+      /* 背鬃 */
+      for (var b = 0; b < 14; b++){
+        var bx = 175 + b * 16;
+        var by = 98 + Math.sin(b * 0.35) * 4;
+        strokePoly([[bx, by], [bx + 4, by - 22]], false);
+      }
+      /* 体侧纹：同心圆 + 弧线 + 叶脉 */
+      ctx.beginPath(); ctx.arc(268, 168, 38, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(268, 168, 22, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(268, 168, 8, 0, Math.PI * 2); ctx.stroke();
+      strokePoly([[210, 145], [245, 138], [290, 142], [330, 155]], false);
+      strokePoly([[205, 190], [250, 200], [310, 198], [350, 185]], false);
+      strokePoly([[318, 130], [345, 118], [368, 138], [348, 155], [322, 148]], true);
+      strokePoly([[338, 120], [348, 145]], false);
+      /* 腿 */
+      strokePoly([[175, 220], [168, 268], [178, 270]], false);
+      strokePoly([[210, 225], [208, 272], [218, 272]], false);
+      strokePoly([[300, 225], [308, 272], [318, 270]], false);
+      strokePoly([[345, 218], [358, 265], [368, 262]], false);
+      /* 尾 */
+      strokePoly([[418, 175], [448, 155], [442, 178]], false);
+      var tex = new THREE.CanvasTexture(c);
+      tex.needsUpdate = true;
+      return tex;
     }
-    /** sign: -1 左鸟（喙朝 +X / 太阳），+1 右鸟（喙朝 -X） */
-    function makeHemuduBird(sign, birdMat, goldMat){
-      var g = new THREE.Group();
-      var body = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 6), birdMat);
-      body.scale.set(1.35, 0.72, 0.55);
-      body.position.set(0, 0.02, 0.02);
-      body.userData.fixedMat = true;
-      g.add(body);
-      var head = new THREE.Mesh(new THREE.SphereGeometry(0.055, 7, 5), birdMat);
-      head.position.set(sign * 0.12, 0.06, 0.04);
-      head.userData.fixedMat = true;
-      g.add(head);
-      var beak = new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.07, 5), goldMat);
-      beak.rotation.z = sign > 0 ? Math.PI * 0.5 : -Math.PI * 0.5;
-      beak.position.set(sign * 0.17, 0.055, 0.05);
-      beak.userData.fixedMat = true;
-      g.add(beak);
-      var wing = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.18, 4), birdMat);
-      wing.rotation.set(0.35, 0, sign * 0.85);
-      wing.position.set(-sign * 0.02, 0.04, -0.02);
-      wing.userData.fixedMat = true;
-      g.add(wing);
-      var crest = new THREE.Mesh(new THREE.ConeGeometry(0.025, 0.08, 4), goldMat);
-      crest.position.set(sign * 0.1, 0.12, 0.03);
-      crest.userData.fixedMat = true;
-      g.add(crest);
-      /* 立于碑面两侧，朝向中央太阳 */
-      g.position.set(sign * -0.34, -0.02, 0.1);
-      return g;
+    function makeRoundedBowlShape(w, h, r){
+      var s = new THREE.Shape();
+      var x = -w * 0.5, y = -h * 0.5;
+      s.moveTo(x + r, y);
+      s.lineTo(x + w - r, y);
+      s.quadraticCurveTo(x + w, y, x + w, y + r);
+      s.lineTo(x + w, y + h - r);
+      s.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      s.lineTo(x + r, y + h);
+      s.quadraticCurveTo(x, y + h, x, y + h - r);
+      s.lineTo(x, y + r);
+      s.quadraticCurveTo(x, y, x + r, y);
+      return s;
     }
-    function makeHemuduCrystalLandmark(){
+    function makeHemuduPigBowlLandmark(){
       var group = new THREE.Group();
-      var stone = makeLandmarkPartMat(0xA89878, 0.42);
-      var bird = makeLandmarkPartMat(0x5C4A36, 0.48);
-      var gold = makeLandmarkPartMat(0xC9A227, 0.88);
-      var paper = makeLandmarkPartMat(0xD9C8A9, 0.52);
-      var dark = makeLandmarkPartMat(0x4A3A28, 0.4);
-      var glass = new THREE.MeshStandardMaterial({
-        color: 0xE8D5A3, emissive: 0xC9A227, emissiveIntensity: 0.32,
-        metalness: 0.12, roughness: 0.06, transparent: true, opacity: 0.2,
+      var pottery = new THREE.MeshStandardMaterial({
+        color: 0x1a1714, emissive: 0x2a2218, emissiveIntensity: 0.22,
+        metalness: 0.08, roughness: 0.82, transparent: true, opacity: 0.98
+      });
+      var potterySoft = pottery.clone();
+      potterySoft.opacity = 0.94;
+      var rimMat = new THREE.MeshStandardMaterial({
+        color: 0x2a2520, emissive: 0x3a3228, emissiveIntensity: 0.28,
+        metalness: 0.12, roughness: 0.7, transparent: true, opacity: 0.98
+      });
+      var goldShell = new THREE.MeshStandardMaterial({
+        color: 0xC9A227, emissive: 0xC9A227, emissiveIntensity: 0.38,
+        metalness: 0.35, roughness: 0.28, transparent: true, opacity: 0.26,
         depthWrite: false
       });
+      var goldEdge = new THREE.LineBasicMaterial({
+        color: 0xE8D090, transparent: true, opacity: 0.72,
+        depthWrite: false, blending: THREE.AdditiveBlending
+      });
 
-      /* 音乐盒底座 */
-      var base = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.62, 0.14, 14), dark);
-      base.position.y = -0.72;
-      base.userData.fixedMat = true;
-      group.add(base);
-      var rim = new THREE.Mesh(new THREE.TorusGeometry(0.52, 0.032, 6, 18), gold);
-      rim.rotation.x = Math.PI * 0.5;
-      rim.position.y = -0.64;
-      rim.userData.fixedMat = true;
-      group.add(rim);
-
-      /* 石碑（接受朝代金荧光，便于深度衰减）+ 牙色碑面 */
-      var stele = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.72, 0.12), stone);
-      stele.position.set(0, -0.12, 0);
-      group.add(stele);
-      var face = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.58, 0.02), paper);
-      face.position.set(0, -0.08, 0.07);
-      face.userData.fixedMat = true;
-      group.add(face);
-
-      /* 中央太阳纹 + 八芒 */
-      var sun = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.04, 12), gold);
-      sun.rotation.x = Math.PI * 0.5;
-      sun.position.set(0, -0.02, 0.1);
-      sun.userData.fixedMat = true;
-      group.add(sun);
-      var core = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 6), gold.clone());
-      core.material.emissiveIntensity = 1.15;
-      core.position.set(0, -0.02, 0.13);
-      core.userData.fixedMat = true;
-      group.add(core);
-      for (var i = 0; i < 8; i++){
-        var a = (i / 8) * Math.PI * 2;
-        var ray = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.11, 0.018), gold);
-        ray.position.set(Math.cos(a) * 0.17, -0.02 + Math.sin(a) * 0.17, 0.1);
-        ray.rotation.z = a;
-        ray.userData.fixedMat = true;
-        group.add(ray);
-      }
-
-      group.add(makeHemuduBird(-1, bird, gold));
-      group.add(makeHemuduBird(1, bird, gold));
-
-      /* 水晶球壳 + 赤道金环 */
-      var shell = new THREE.Mesh(new THREE.SphereGeometry(0.92, 18, 14), glass);
+      /* 朝代外形：八面体壳 + 棱边辉光 */
+      var shellGeo = new THREE.OctahedronGeometry(1.05, 0);
+      var shell = new THREE.Mesh(shellGeo, goldShell);
       shell.userData.fixedMat = true;
       group.add(shell);
-      var eq = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.012, 5, 24), gold);
-      eq.rotation.x = Math.PI * 0.5;
-      eq.userData.fixedMat = true;
-      group.add(eq);
+      var edges = new THREE.LineSegments(new THREE.EdgesGeometry(shellGeo), goldEdge);
+      edges.userData.fixedMat = true;
+      edges.userData.isEdgeGlow = true;
+      group.add(edges);
 
-      group.userData.landmarkForm = "hemudu-shuangniao";
-      group.userData.easterEgg = "shuangniao-chaoyang";
+      /* 猪纹陶钵：圆角长方钵，上宽下略收 */
+      var bowl = new THREE.Group();
+      var outer = makeRoundedBowlShape(0.92, 0.52, 0.11);
+      var hole = makeRoundedBowlShape(0.68, 0.34, 0.08);
+      outer.holes.push(hole);
+      var bodyGeo = new THREE.ExtrudeGeometry(outer, {
+        depth: 0.48, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.025,
+        bevelSegments: 2, curveSegments: 6
+      });
+      bodyGeo.center();
+      bodyGeo.rotateX(-Math.PI * 0.5);
+      /* 轻微下收：沿 Y 缩放底部感由外形暗示 */
+      var body = new THREE.Mesh(bodyGeo, pottery);
+      body.scale.set(1, 0.92, 1.05);
+      body.userData.fixedMat = true;
+      bowl.add(body);
+
+      /* 内腔底 */
+      var floor = new THREE.Mesh(
+        new THREE.BoxGeometry(0.62, 0.04, 0.30),
+        potterySoft
+      );
+      floor.position.y = -0.16;
+      floor.userData.fixedMat = true;
+      bowl.add(floor);
+
+      /* 厚口沿 */
+      var rim = new THREE.Mesh(
+        new THREE.BoxGeometry(0.98, 0.06, 0.56),
+        rimMat
+      );
+      rim.position.y = 0.22;
+      rim.userData.fixedMat = true;
+      bowl.add(rim);
+      var rimIn = new THREE.Mesh(
+        new THREE.BoxGeometry(0.72, 0.05, 0.36),
+        potterySoft
+      );
+      rimIn.position.y = 0.21;
+      rimIn.userData.fixedMat = true;
+      bowl.add(rimIn);
+
+      /* 猪纹刻画贴面（两侧） */
+      var pigTex = makeHemuduPigTexture();
+      var pigMat = new THREE.MeshBasicMaterial({
+        map: pigTex, transparent: true, opacity: 0.95,
+        depthWrite: false, side: THREE.DoubleSide
+      });
+      var faceGeo = new THREE.PlaneGeometry(0.78, 0.42);
+      var faceA = new THREE.Mesh(faceGeo, pigMat);
+      faceA.position.set(0, 0.02, 0.275);
+      faceA.userData.fixedMat = true;
+      bowl.add(faceA);
+      var faceB = faceA.clone();
+      faceB.position.z = -0.275;
+      faceB.rotation.y = Math.PI;
+      bowl.add(faceB);
+
+      bowl.position.y = -0.04;
+      bowl.rotation.y = Math.PI * 0.08;
+      bowl.scale.setScalar(0.78);
+      group.add(bowl);
+
+      group.userData.landmarkForm = "hemudu-zhutao";
+      group.userData.easterEgg = "pig-pattern-bowl";
       return group;
     }
 
@@ -2255,8 +2327,8 @@
       }
       var geoOrGroup;
       if (node.id === "hemudu") {
-        /* 朝代彩蛋：水晶球音乐盒内嵌双鸟朝阳石碑 */
-        geoOrGroup = makeHemuduCrystalLandmark();
+        /* 朝代外形八面体 + 内嵌猪纹陶钵 */
+        geoOrGroup = makeHemuduPigBowlLandmark();
       } else if (node.type === "literature") {
         geoOrGroup = makeLiteratureGeometry(node);
       } else if (node.type === "region" && node.level === 2) {
@@ -2303,7 +2375,7 @@
         var af = node.__archForm || "miao";
         baseScale *= (af === "ta" ? 1.15 : (af === "ting" ? 1.05 : 1.1));
       } else if (node.id === "hemudu") {
-        baseScale *= 1.14; /* 水晶球内石碑略放大便于辨认 */
+        baseScale *= 1.12; /* 八面体内陶钵略放大便于辨认 */
       }
       mesh.scale.setScalar(baseScale);
       var halo = new THREE.Sprite(new THREE.SpriteMaterial({
