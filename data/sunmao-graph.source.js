@@ -6700,8 +6700,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "如旧料不刮曝，邠补榫眼",
-          "tr": "未刮晒的旧料，需要对榫眼部位做修补处理",
-          "en": "For old material not scraped and seasoned, the tenon-eye parts need repair treatment."
+          "tr": "未刮晒的旧料，需要对榫眼部位做修补处理"
         },
         {
           "cn": "地伏落槽打榫窝掬过水沟",
@@ -6717,8 +6716,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "捌角柱子两头做榫，下截打榫窝肆个，上节落银锭槽肆个",
-          "tr": "捌角柱子两头做榫，下截打榫窝四个，上节落银锭槽四个",
-          "en": "The octagonal pillar has tenons made at both ends, with four mortise holes cut into the lower section and four silver-ingot (dovetail) grooves cut into the upper section."
+          "tr": "捌角柱子两头做榫，下截打榫窝四个，上节落银锭槽四个"
         }
       ]
     },
@@ -6741,8 +6739,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "卯眼内放竹楔者，魇曰：簨卯放竹，不动自哭。使人家屋内常有哭声。",
-          "tr": "旧时厌胜之说：若卯眼内被放入竹楔，咒语称“簨卯放竹，不动自哭”，会使人家屋内常有哭声。",
-          "en": "As for those who place a bamboo wedge inside the mortise eye, a curse says: 'Sun mao fang zhu, bu dong zi ku' (placing bamboo in the sun-mao joint, it weeps without being moved), causing the household to constantly hear weeping within."
+          "tr": "旧时厌胜之说：若卯眼内被放入竹楔，咒语称“簨卯放竹，不动自哭”，会使人家屋内常有哭声。"
         }
       ]
     },
@@ -6792,23 +6789,19 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "后面下有小阳榫为钩脚，安于门身上之横槽以推动之。至子弹放出后，将闩柄后转螺丝榫。",
-          "tr": "小阳榫做钩脚适配门身横槽，另有螺丝榫结构",
-          "en": "The small male tenon serves as the hook foot to fit the horizontal groove of the bolt body, with an additional screw-tenon structure."
+          "tr": "后面下方有小阳榫当作钩脚，安在门身上的横槽里以便推动；子弹放出后，再将闩柄向后转动螺丝榫。"
         },
         {
           "cn": "火门就在简上熟火，较马蹄笋卯撒者更牢。",
-          "tr": "筒与火门磋平对齐钻眼，铁件固定合为一体，比马蹄笋卯更牢固",
-          "en": "The barrel and touch-hole are filed flat and aligned, then holes drilled and secured with iron fittings to form one body, which is sturdier than the horseshoe sun-mao joint."
+          "tr": "筒与火门磋平对齐钻眼，铁件固定合为一体，比马蹄笋卯更牢固"
         },
         {
           "cn": "再将螺丝榫上之螺丝钉旋去，按定其榫取出。",
-          "tr": "螺丝榫配螺丝钉，旋下螺丝钉即可取出榫件",
-          "en": "Then the screw on the screw tenon is unscrewed, and the tenon is pressed in place and taken out."
+          "tr": "螺丝榫配螺丝钉，旋下螺丝钉即可取出榫件"
         },
         {
           "cn": "炮门榫合于窝槽内，门向左摇则榫脱出窝槽",
-          "tr": "炮门榫嵌入窝槽，摇门时榫脱出窝槽",
-          "en": "The cannon-door tenon fits into the socket groove; when the door is shaken the tenon comes out of the socket groove."
+          "tr": "炮门榫嵌入窝槽，摇门时榫脱出窝槽"
         },
         {
           "cn": "造行营桥梁，如匠人凿眼斗榫之法，大约不用，而用绳索及曲铁之类，包扎稳固。",
@@ -6843,8 +6836,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "脚子：上高九寸二分，广一寸三分，厚同边脚。除上卯，向下量三寸，画顺樘幌眼。",
-          "tr": "脚子高九寸二分，广一寸三分，厚同边脚，上部设卯，向下三寸画顺樘幌眼",
-          "en": "Foot piece: the upper height is nine cun two fen, the width one cun three fen, and the thickness the same as the side foot. Apart from the upper mortise, measure three cun downward and draw the shun-tang-huang (straight transom) eye."
+          "tr": "脚子高九寸二分，广一寸三分，厚同边脚，上部设卯，向下三寸画顺樘幌眼"
         }
       ]
     },
@@ -6875,8 +6867,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "以做戗檐斜长入榫分位有差。",
-          "tr": "戗檐斜长入榫预留适当分位",
-          "en": "[The slanting qiang-eave enters the tenon leaving an appropriate margin of position."
+          "tr": "戗檐斜长入榫预留适当分位"
         }
       ]
     },
@@ -6899,8 +6890,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "卧身子除前卯，向后量二尺五寸取后脚眼，后脚眼上量二寸画横樘幌眼",
-          "tr": "从卯位量取指定尺寸定位各类榫眼位置",
-          "en": "The positions of the various tenon eyes are located by measuring specified dimensions from the mortise position."
+          "tr": "从卯位量取指定尺寸定位各类榫眼位置"
         },
         {
           "cn": "机胳滕长一尺五寸，厚一寸二分。机身向前量六寸，外画捲轴眼，后卯栓透机身两脚",
@@ -6916,7 +6906,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "榫卯圆则圆、方则方。",
-          "en": "The tenon is round where round, square where square."
+          "tr": "榫卯圆就一起做成圆的，方就一起做成方的。"
         },
         {
           "cn": "垂手子长一尺二寸六分，广厚前同。除卯七寸四分，钻寨眼，开口子与掌手子同。",
@@ -6943,13 +6933,11 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "工出细则冲打篐槽，打搯钻取掏眼，打眼，打边退头榫窌起线出线，剔凿扁光掏空",
-          "tr": "石作工艺涉及打眼、退头榫窌、剔凿扁光掏空工序",
-          "en": "For fine work, punching and striking the hoop groove, drilling and extracting the eye, opening the eye, striking the edge, making the stepped tenon-mortise, raising lines, producing lines, and paring, chiseling flat and hollowing out."
+          "tr": "石作工艺涉及打眼、退头榫窌、剔凿扁光掏空工序"
         },
         {
           "cn": "大夯用桥梁、桥廪锯截，做榫凿眼用桥板，错缝，做参面折见方陆拾尺",
-          "tr": "锯截木料后加工榫、凿眼，桥板采用错缝工艺拼接",
-          "en": "After sawing and cutting the timber, tenons are made and eyes chiseled; the bridge planks are joined by the staggered-joint technique."
+          "tr": "锯截木料后加工榫、凿眼，桥板采用错缝工艺拼接"
         },
         {
           "cn": "攒竹匠职在刮黄刮节，去青去网，成开做榫窌有十三合头、九合头、五合头攒做之分，胶以缝计",
@@ -7015,8 +7003,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "桥梁桥檩锯截做榫凿眼，每榫眼捌个，用木匠壹工。桥板错缝做参面，折见方尺陆拾尺，用木匠壹工",
-          "tr": "桥梁檩木锯截做榫凿眼，每八个榫眼用工木匠一名",
-          "en": "The bridge purlin timber is sawn and cut to make tenons and chisel eyes, eight tenon-eyes counting one carpenter's work-day."
+          "tr": "桥梁檩木锯截做榫凿眼，每八个榫眼用工木匠一名"
         },
         {
           "cn": "大夯用桥梁、桥廪锯截，做榫凿眼用桥板，错缝，做参面折见方陆拾尺",
@@ -7024,7 +7011,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "竖轴下端在活衬卯内转动，活衬卯在寅槽内直动，竖轴乙在平圆板子槽内用螺丝移动",
-          "en": "The movable lining mortise allows the vertical shaft to rotate; the yin groove allows the lining mortise to move straight; the flat-round-plate groove allows the vertical shaft to be moved by a screw."
+          "tr": "竖轴下端在活衬卯里转动，活衬卯在寅槽里作直线运动，竖轴乙则在平圆板子槽内用螺丝移动。"
         }
       ]
     },
@@ -7101,8 +7088,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "木傀儡戏人偶平底安一榫卯，用三寸长竹板承之",
-          "tr": "木傀儡人偶底部设置榫卯，与配套竹板承接固定",
-          "en": "A tenon-and-mortise is set at the base of the wooden puppet, joined and fixed with a matching bamboo board."
+          "tr": "木傀儡人偶底部设置榫卯，与配套竹板承接固定"
         }
       ]
     },
@@ -7133,11 +7119,11 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "近峰闻略说木工榫卯字，引伊川语录云：枘凿者，榫卯也，榫卯圆则圆，榫卯方则方，榫卯本作簨牡，后人撰借为榫卯",
-          "en": "The Jinfeng Wenlue discusses the character for the carpenter's tenon-and-mortise, citing the Yichuan Yulu: 'The handle-and-chisel is the tenon-and-mortise; round where round, square where square. The tenon-and-mortise was originally written sun-mu, later borrowed by later generations as sun-mao.'"
+          "tr": "《近峰闻略》谈到木工“榫卯”二字，引伊川语录说：“枘凿”就是榫卯；榫卯圆则一起圆、方则一起方。“榫卯”本写作“簨牡”，后人借写成“榫卯”。"
         },
         {
           "cn": "九锅上牌坊直柱长一尺五分，榫头在外，为缫丝牌坊构件。",
-          "en": "The upright post of the nine-pot upper arch is one chi five fen long, with the tenon head outside, as a member of the reeling-frame arch."
+          "tr": "九锅缫丝架上牌坊的直柱长一尺五分，榫头露在外侧，是缫丝牌坊的构件。"
         }
       ]
     },
@@ -7183,8 +7169,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "缫具形制同蚕桑萃编，梁柱两端均裁方榫，嵌入对应榫孔固定",
-          "tr": "缫具梁柱两端均裁方榫，对应嵌入预设直孔固定",
-          "en": "Square tenons are cut at both ends of the beams and posts of the reeling frame and fitted into the corresponding preset holes for fixing."
+          "tr": "缫具梁柱两端均裁方榫，对应嵌入预设直孔固定"
         },
         {
           "cn": "缫车轴以坚木为之，轴两端裁圆榫，嵌入车床左右柱的榫口内",
@@ -7211,8 +7196,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "柱桁之属砍铇出细榫眼则开透，极管脚雌雄之制，起槽起线极尽精巧",
-          "tr": "柱桁构件加工出通透细榫眼，管脚采用雌雄榫结构，起槽走线工艺精巧",
-          "en": "The pillar and beam members are worked into through fine mortise eyes; the tube-foot uses the male-female tenon structure, with exquisite grooving and lining."
+          "tr": "柱桁构件加工出通透细榫眼，管脚采用雌雄榫结构，起槽走线工艺精巧"
         },
         {
           "cn": "柱头作方榫，床底照柱头凿两方孔推入，圈木太窄不容作榫用漆钉钉紧",
@@ -7239,13 +7223,11 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "柱头作方榫，床底照柱头凿两方孔推入，圈木太窄不容作榫用漆钉钉紧",
-          "tr": "柱头做方榫，床底凿对应方孔嵌套，窄构件开榫不便用漆钉固定",
-          "en": "A square tenon is made at the column head; two square holes are chiseled in the bed base to receive the column head and pushed in; where the round timber is too narrow to take a tenon, lacquer nails are used to secure it."
+          "tr": "柱头做方榫，床底凿对应方孔嵌套，窄构件开榫不便用漆钉固定"
         },
         {
           "cn": "直檽二十四根，各连榫高二尺九寸，见方二寸五分。",
-          "tr": "直檽连带榫头总高二尺九寸，截面见方二寸五分",
-          "en": "The straight purlin together with its tenon head is two chi nine cun high in all, with a section two cun five fen square."
+          "tr": "直檽连带榫头总高二尺九寸，截面见方二寸五分"
         },
         {
           "cn": "石柱各外下榫长七寸，拦板外三面榫各深五分，抱鼓外二面榫各深五分",
@@ -7272,8 +7254,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "石柱各外下榫长七寸，拦板外三面榫各深五分，抱鼓外二面榫各深五分",
-          "tr": "石柱、栏板、抱鼓分别制不同尺寸榫头，凿拦板槽深五分",
-          "en": "Stone pillars, railing panels and drum-stones are each made with tenons of different sizes, and railing-panel grooves are chiseled five fen deep."
+          "tr": "石柱、栏板、抱鼓分别制不同尺寸榫头，凿拦板槽深五分"
         },
         {
           "cn": "贰面落栏板槽，每柱子壹根，两肋落栏板槽椎眼",
@@ -7312,7 +7293,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "开凿椽碗脊桩眼做雌雄榫窌径柒捌寸者，开凿枝条榫口径柒捌寸者",
-          "tr": "制作雌雄榫、榫口等木作构件"
+          "tr": "开凿椽碗、脊桩眼：做雌雄榫窌，口径七至八寸者；另开凿枝条榫口，口径七至八寸者。"
         },
         {
           "cn": "每柱子壹根，两助落栏板槽榫眼贰个",
@@ -7339,8 +7320,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "开凿椽碗脊桩眼做雌雄榫窌径柒捌寸者，开凿枝条榫口径柒捌寸者",
-          "tr": "制作雌雄榫、榫口等木作构件",
-          "en": "Rafter-bowl ridge-post eyes are chiseled to make male-female tenons of seven or eight cun diameter; branch tenon mouths of seven or eight cun diameter are chiseled."
+          "tr": "开凿椽碗、脊桩眼：做雌雄榫窌，口径七至八寸者；另开凿枝条榫口，口径七至八寸者。"
         },
         {
           "cn": "旧石塘漫石不凿榫龙骨无槽口易坍，现饬凿榫开槽镶嵌",
@@ -7367,8 +7347,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "旧石塘漫石不凿榫龙骨无槽口易坍，现饬凿榫开槽镶嵌",
-          "tr": "石塘漫石凿榫龙骨开槽镶嵌，下方填实块石防冲坍",
-          "en": "The old stone causeway's facing stones were not chiseled into tenons, and the keel had no groove mouth, so it was prone to collapse; now it is ordered to chisel tenons and open grooves for inlaying."
+          "tr": "石塘漫石凿榫龙骨开槽镶嵌，下方填实块石防冲坍"
         },
         {
           "cn": "伊川云：枘凿者，榫卯也。榫与卯，圆则俱圆，方则俱方。若一方一圆，则不相入。",
@@ -7422,7 +7401,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "铜虎符长五寸四分，高八分，阔八分，剖而为二，二片相合，左内有三榫隆起，右内有三凹为卯，以受榫，啇银三行，凡十八字，今不具载。",
-          "tr": "铜虎符剖为二片，左三榫隆起，右三凹卯承接榫头"
+          "tr": "铜虎符长五寸四分、高八分、宽八分，剖成两片相合：左片内有三榫隆起，右片内有三处凹卯承接榫头；错银三行共十八字，此处不详录。"
         }
       ]
     },
@@ -7453,7 +7432,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "帐幕竖板每块有两榫相对，板下配带卯的银座。",
-          "en": "The upright boards have two tenons, with silver bases with mortises beneath to receive and fix them."
+          "tr": "帐幕的竖板每块有两榫相对，板下配有带卯的银座（承榫固定）。"
         }
       ]
     },
@@ -7603,7 +7582,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "铜虎符长五寸四分，高八分，阔八分，剖而为二，二片相合，左内有三榫隆起，右内有三凹为卯，以受榫，啇银三行，凡十八字，今不具载。",
-          "en": "The bronze tiger tally is five cun four fen long, eight fen high and eight fen wide, split into two halves that fit together; on the inner left there are three raised tenons, and on the inner right three concave mortises to receive the tenons; three rows of inlaid silver, eighteen characters in all, not recorded here."
+          "tr": "铜虎符长五寸四分、高八分、宽八分，剖成两片相合：左片内有三榫隆起，右片内有三处凹卯承接榫头；错银三行共十八字，此处不详录。"
         },
         {
           "cn": "窝弩安机处开形如腰子的安机槽，槽后横开千觔机眼",
@@ -7730,8 +7709,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "博山油漆既有此特异，更兼木工出手高强。凡木器的卯榫呀",
-          "tr": "博山的油漆既有这样的特色，加之木工手艺高超，凡木器的卯榫（都做得十分精良）。",
-          "en": "Boshan lacquerware has this peculiarity, and moreover the woodworkers are highly skilled; the mortise-and-tenon of all wooden utensils is excellent."
+          "tr": "博山的油漆既有这样的特色，加之木工手艺高超，凡木器的卯榫（都做得十分精良）。"
         }
       ]
     },
@@ -7881,7 +7859,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "其制用木二根，长三尺五寸，一头凿四十长卯，用时套在勒成扁樵上，又以石板压住架尾，方不浮起。",
-          "en": "Its construction uses two pieces of wood three chi five cun long, with a forty-long mortise chiseled at one end, which when in use is slipped over the flattened wooden wedge, and a stone slab is pressed over the tail of the frame so that it does not float up."
+          "tr": "其制法用两根木头，各长三尺五寸，一头凿出长四十（分）的卯；使用时套在勒成扁形的樵木上，再用石板压住架尾，使它不会浮起。"
         }
       ]
     },
@@ -7931,7 +7909,7 @@ window.GRAPH_DATA = {
         },
         {
           "cn": "侧画屋于平壁上定举之峭慢折之圜和，可见屋内梁柱高下、卯眼远近，簇角梁上下并出卯中",
-          "en": "Drawing the house sideways on a flat wall to determine the steepness or gentleness of the rise and the roundness of the folding, one can see the heights of the beams and pillars inside and the distances of the mortise eyes, with the clustered corner beams protruding from the mortises above and below."
+          "tr": "在平壁上侧画屋样，定举折的峭缓与圜和，便可看出屋内梁柱的高低、卯眼的远近；簇角梁上下都从卯中穿出。"
         }
       ]
     },
@@ -8308,8 +8286,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "石之纵横交接处，上下凿成槽榫，嵌合联贯，用油灰或米汁抿灌箝以铁襻",
-          "tr": "石块交接处凿槽榫嵌合，油灰米汁抿灌加铁襻加固",
-          "en": "At the horizontal and vertical joints of the stones, grooves and tenons are chiseled above and below, fitted and linked through, and filled with oil-lime or rice juice and clamped with iron fasteners."
+          "tr": "石块交接处凿槽榫嵌合，油灰米汁抿灌加铁襻加固"
         }
       ]
     },
@@ -8332,8 +8309,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "石塘龙骨、幔板各无榫互不维系，改制后开槽嵌板相连",
-          "tr": "旧石塘的龙骨与幔板各自无榫、互不联系；改制后开槽嵌板，使之相连。",
-          "en": "The thick stone keel is slanted and chiseled into grooves, and the planks are shaped and fitted into the grooves to hold each other."
+          "tr": "旧石塘的龙骨与幔板各自无榫、互不联系；改制后开槽嵌板，使之相连。"
         },
         {
           "cn": "城工迎朝石处设莺尾肩槽，转角处用阴阳合榫",
@@ -8575,13 +8551,11 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "火门就在筒上熟火，较马蹄笋卯撒者更牢。熟火之法，筒并火门两下磋平，前后钻眼管管定，铸火和作一家，毕竟牢固得紧。",
-          "tr": "筒与火门磋平钻眼固定铸为一体，较马蹄笋卯结构更牢固",
-          "en": "The touch-hole is hot-forged directly on the barrel, which is sturdier than the horseshoe sun-mao joint. In the method of hot forging, the barrel and touch-hole are filed flat against each other, holes drilled front and back and fixed with tubes, and the whole is cast into one body, ultimately extremely sturdy."
+          "tr": "筒与火门磋平钻眼固定铸为一体，较马蹄笋卯结构更牢固"
         },
         {
           "cn": "窄将火门卯入，用平銮躧过，其眼务要极小。",
-          "tr": "火门构件卯入后，将孔眼碾至极小",
-          "en": "After the touch-hole member is mortised in, the hole is smoothed down to the smallest size."
+          "tr": "火门构件卯入后，将孔眼碾至极小"
         }
       ]
     },
@@ -8626,13 +8600,11 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "凡不得入者利其拴，不得合者利其榫。",
-          "tr": "木材拼接不严处用榫固定，工料核算涵盖榫眼、榫窌工艺",
-          "en": "Whatever cannot be entered is aided by its pin; whatever cannot be joined is aided by its tenon."
+          "tr": "木材拼接不严处用榫固定，工料核算涵盖榫眼、榫窌工艺"
         },
         {
           "cn": "将筒后根凿一漕，下宽上窄，将火门卯入。",
-          "tr": "在铳筒后部凿一道槽，下宽上窄，将火门卯入固定。",
-          "en": "A groove wide at the bottom and narrow at the top is chiseled at the barrel's rear root, and the touch-hole is mortised in and fixed."
+          "tr": "在铳筒后部凿一道槽，下宽上窄，将火门卯入固定。"
         }
       ]
     },
@@ -8847,7 +8819,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "欲作四槽者，又平分庚午于壬，依法作之。欲作三槽、六槽、九槽者，先分轴为九平分；欲作五槽、十槽者，先分轴为十平分，依法作之。",
-          "tr": "将轴按所需数量平分后依法制作对应数量的螺旋槽"
+          "tr": "若要做四道槽，再把庚午平分到壬位，依法制作；若要做三、六、九道槽，先把轴均分成九等分；若要做五道或十道槽，先把轴均分成十等分，再依法制作。"
         }
       ]
     },
@@ -9008,8 +8980,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "以益榫卯尺数，为塔心木长",
-          "tr": "塔心木长度计算需额外加入榫卯尺寸",
-          "en": "Adding the tenon-and-mortise dimension to make the length of the pagoda-core wood."
+          "tr": "塔心木长度计算需额外加入榫卯尺寸"
         },
         {
           "cn": "榫卯(音笋茂程易传)簨就(竹以入凿象作卯)",
@@ -9059,8 +9030,7 @@ window.GRAPH_DATA = {
       "quotes": [
         {
           "cn": "欲作三槽六槽九槽者，先分轴为九平分。欲作五槽十槽，先分轴为十平分，依法作之。",
-          "tr": "于轴上制螺旋形导水槽，可作三槽、六槽、九槽、五槽、十槽等不同数量槽体",
-          "en": "Spiral water-conducting grooves are made on the axle, in numbers of three, six, nine, five or ten grooves."
+          "tr": "于轴上制螺旋形导水槽，可作三槽、六槽、九槽、五槽、十槽等不同数量槽体"
         }
       ]
     },
@@ -9092,21 +9062,76 @@ window.GRAPH_DATA = {
       "name": "《五朝小说》",
       "en": "Wuchao Xiaoshuo (Tales of Five Dynasties)",
       "type": "literature",
-      "desc": "古籍文献，载有榫卯相关记述。",
-      "enDesc": "Collection of tales.",
-      "detail": "",
-      "enDetail": "Collection of tales. Its text preserves period usage of mortise-and-tenon (sunmao) terminology; see the excerpt below.",
+      "desc": "明代小说总集。所收唐传奇《阴隐客》（出谷神子《博异志》）写穿井入穴、梯仙国异境，亦见《太平广记》。",
+      "enDesc": "Ming anthology of tales; includes the Tang story Yin Yinke.",
+      "detail": "《五朝小说》收录六朝至明初文言小说。本条摘录「阴隐客」：房州竹山县百姓阴隐客穿井得穴，工人入穴见天桂山宫、梯仙国；归时人间已过数十年。故事原出唐谷神子《博异志》，亦载《太平广记》卷四〇。",
+      "enDetail": "Ming anthology of classical tales. Excerpt: Yin Yinke’s well diggers enter a cavern world (Heaven-Cassia Palace, Ladder Immortal Realm); decades have passed on return. Source: Bo Yi Zhi / Taiping Guangji.",
       "traits": [
-        "作者：桓𬴊",
-        "榫卯文献记述"
+        "收录：《阴隐客》",
+        "原出：谷神子《博异志》",
+        "亦见：《太平广记》"
       ],
       "refs": [
-        "《五朝小说》"
+        "《五朝小说》",
+        "《博异志》",
+        "《太平广记》卷四〇"
       ],
       "quotes": [
         {
-          "cn": "隐客穿凿之志不辍。二年外一月余，工人忽闻地中□犬鸟雀声，更凿数尺，傍通一石冗。工人乃入冗探之，初数十步，无所见，但扪壁而傍行，俄转会如目月之光，遂下。其冗，下连一山峰。工人乃下于山，正立而视，乃别一天地日月世界。其山傍向万千岩万壑，莫卯景石，尽碧琉璃色。每岩壑中皆有金银宫阙。有大树，身如竹，有节，叶如芭蕉。又有紫花如盘，五色蛱蝶，翅大如扇，翔舞花间。五色乌大如鹤，翺翔乎树杪。每岩中有清泉一眼，色如镜，白泉一眼，白如乳。工人渐下，至宫阙所，欲入询问，行至阙前，见牌上署日天桂山宫，以银字书之。门两阁内，各有一人惊出，各长五尺余，童颜如玉，衣服轻。细如白雾绿烟，绛唇皓齿，鬒发如青丝，首冠金冠而跣足，顾谓工人曰：汝胡为至此？",
-          "tr": "隐客开凿的志向始终不减。过了两年零一个多月，工人忽然听到地下传来鸡犬鸟雀之声，再凿数尺，旁边通到一处石穴。"
+          "cn": "唐神龙元年，房州竹山县百姓阴隐客，家富。庄后穿井二年，已浚一千余尺而无水，隐客穿凿之志不辍。",
+          "tr": "唐中宗神龙元年，房州竹山县百姓阴隐客家境富裕。他在庄园后打井打了两年，已深一千多尺仍不见水，却始终不放弃开凿。"
+        },
+        {
+          "cn": "二年外一月余，工人忽闻地中鸡犬鸟雀声，更凿数尺，傍通一石穴，工人乃入穴探之。初数十步无所见，但扪壁傍行。俄转有如日月之光，遂下。",
+          "tr": "又过了一年零一个多月，工人忽然听见地下有鸡犬鸟雀的叫声；再凿数尺，旁边通出一处石穴，工人便进穴探查。起初走了几十步什么也看不见，只得摸着石壁侧行。不久转弯处出现如同日月的光亮，于是向下走去。"
+        },
+        {
+          "cn": "其穴下连一山峰，工人乃下山，正立而视，则别一天地日月世界。其山傍向万仞，千岩万壑，莫非灵景；石尽碧琉璃色，每岩壑中皆有金银宫阙。",
+          "tr": "穴底下连着一座山峰；工人下到山上站定一看，竟是另一番天地日月世界。山势万仞，千岩万壑无不是灵异景象；山石尽呈碧琉璃色，每处岩壑中都有金银宫阙。"
+        },
+        {
+          "cn": "有大树，身如竹有节，叶如芭蕉；又有紫花如盘，五色蛱蝶翅大如扇，翔舞花间；五色鸟大如鹤，翱翔树杪。每岩中有清泉一眼，色如镜；白泉一眼，白如乳。",
+          "tr": "有大树，树干如竹而有节，叶子像芭蕉；又有紫花大如盘，五色蛱蝶翅大如扇，在花间飞舞；五色鸟大如鹤，在树梢盘旋。每处岩中有清泉一眼，明净如镜；又有白泉一眼，色白如乳。"
+        },
+        {
+          "cn": "工人渐下至宫阙所，欲入询问。行至阙前，见牌上署曰「天桂山宫」，以银字书之。门两阁内各有一人惊出，各长五尺余，童颜如玉，衣服轻细如白雾绿烟，绛唇皓齿，鬒发如青丝，首冠金冠而跣足。顾谓工人曰：「汝胡为至此？」工人具陈本末。",
+          "tr": "工人渐渐下山，来到宫阙前想进去打听。到了阙前，见牌子上用银字写着「天桂山宫」。门两旁阁里各有一人惊慌走出，身高五尺多，面容如玉的童颜，衣服轻细像白雾绿烟，红唇白齿、头发如青丝，头戴金冠、赤着脚。回头对工人说：「你怎么到这里来了？」工人把经过一一说明。"
+        },
+        {
+          "cn": "言未毕，门中有数十人出云：「怪有昏浊气。」令责守门者。二人惶惧而言曰：「有外界工人，不意而到，询问途次，所以未奏。」须臾，有绯衣一人传敕曰：「敕门吏礼而遣之。」",
+          "tr": "话没说完，门里走出几十人，说：「怎么有股浑浊之气？」便责问守门的二人。二人惶恐道：「有外界工人不期而至，正在问路，所以还没来得及禀报。」不久，一名红衣人传下敕令：「命门吏以礼送他回去。」"
+        },
+        {
+          "cn": "工人拜谢未毕，门人曰：「汝已至此，何不求游览毕而返？」工人曰：「向者未敢，倘赐从容，乞乘便言之。」门人遂通一玉简入，旋而玉简却出，门人执之。引工人行至清泉眼，令洗浴及浣衣服；又至白泉眼，令盥漱之。味如乳，甘美甚，连饮数掬，似醉而饱。",
+          "tr": "工人拜谢还没完，门人又说：「你既然已经到了这里，何不请求游览一番再回去？」工人说：「刚才不敢开口；若能稍加宽假，恳请顺便让我说一声。」门人便递进一支玉简，片刻玉简又递出，门人拿着它。领工人到清泉边，让他沐浴并洗衣；又到白泉边，让他漱洗。泉水味如乳汁，十分甘美，连饮几捧，竟似既醉又饱。"
+        },
+        {
+          "cn": "遂为门人引下山。每至宫阙，只得于门外，而不许入。如是经行半日，至山趾，有一国城，皆是金银珉玉为宫室城楼，以玉字题云「梯仙国」。",
+          "tr": "于是由门人领着下山。每到一处宫阙，只能停在门外，不许进去。这样走了约莫半日，到了山脚，有一座国城，宫室城楼皆用金银美玉建成，用玉字题着「梯仙国」。"
+        },
+        {
+          "cn": "工人询于门人曰：「此国何如？」门人曰：「此皆诸仙初得仙者，关送此国，修行七十万日，然后得至诸天，或玉京、蓬莱、昆阆、姑射，然方得仙官职位，主箓主印，飞行自在。」",
+          "tr": "工人问门人：「这是怎样的国度？」门人说：「这里都是刚刚得道的仙人，被关送到此国；修行满七十万日，才能升到诸天，或玉京、蓬莱、昆阆、姑射，然后才得仙官之职，掌管符箓印信，飞行自在。」"
+        },
+        {
+          "cn": "工人曰：「既是仙国，何在吾国之下界？」门人曰：「吾此国是下界之上仙国也。汝国之上，还有仙国如吾国，亦曰「梯仙国」，一无所异。」言毕，谓工人曰：「卿可归矣。」",
+          "tr": "工人又问：「既然是仙国，为何在我们凡界之下？」门人说：「我国是下界之上的仙国。你们凡界之上，也还有与我国一样的仙国，同样叫「梯仙国」，毫无差别。」说完，门人对工人道：「你可以回去了。」"
+        },
+        {
+          "cn": "遂却上山，寻旧路，又令饮白泉数掬。临至山顶求穴，门人曰：「汝来此虽顷刻，人间已数十年矣。却出旧穴，应不可矣。待吾奏请通天关钥匙开，送卿归。」工人拜谢。",
+          "tr": "于是又上山，寻来时旧路，并再让他饮几捧白泉。临近山顶要找石穴时，门人说：「你来这里虽只片刻，人间已过数十年了。从原穴出去恐怕不行。等我奏请通天关的钥匙打开，再送你回去。」工人拜谢。"
+        },
+        {
+          "cn": "须臾，门人携金印及玉简，又引工人别路而上。至一大门，势侔楼阁；门人示金印、读玉简，划然开门。门人引工人上，才入门，为风云拥而去，因无所睹，唯闻门人云：「好去，为吾致意于赤城真伯。」",
+          "tr": "片刻，门人带着金印和玉简，另引一条路上行。到一座大门，气势像楼阁；门人出示金印、宣读玉简，门忽然敞开。门人领工人上去，刚进门便被风云裹挟而去，眼前什么也看不见，只听见门人说：「好走，替我向赤城真伯问好。」"
+        },
+        {
+          "cn": "须臾云开，已在房州北三十里孤星山顶洞中。出后询阴隐客家，时人云：「已三四世矣。」开井之由，皆不能知。工人自寻其处，惟见一巨坑，乃崩井之所为也。时贞元七年矣。",
+          "tr": "片刻云开，人已在房州城北三十里孤星山顶的洞中。出来后打听阴隐客一家，当地人说：「已经传了三四代了。」当初为何开井，谁也不清楚。工人自己去找原处，只见一个大坑，正是井壁坍塌所成。这时已是唐德宗贞元七年。"
+        },
+        {
+          "cn": "工人寻觅家人，了不知处。自后不乐人间，遂不食五谷，信足而行。数年后，有人于剑阁鸡冠山側近逢之，后莫知所在。",
+          "tr": "工人寻找家人，全然不知下落。此后厌弃人间，不再吃五谷，信步而行。数年之后，有人在剑阁鸡冠山附近遇见过他，再往后就不知所终了。"
         }
       ]
     },

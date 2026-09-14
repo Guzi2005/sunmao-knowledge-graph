@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Tenennium · 榫卯 · 木构千年</title>
-<meta name="tenennium-build" content="20260914h" />
+<meta name="tenennium-build" content="20260914k" />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=4" />
 <link rel="apple-touch-icon" href="assets/favicon.svg?v=4" />
 <link rel="preload" as="font" type="font/woff" crossorigin
@@ -583,9 +583,21 @@
   @media (max-width:768px) and (pointer:coarse){
     #navHint .nav-mouse{display:none;}
     #navHint .nav-touch{display:inline;}
+    /* 手机：菜单略收，介于过小与平板之间 */
+    .panel-card .handle{min-height:40px; padding:8px 11px;}
+    .panel-card .handle .label,
+    .panel-card .handle h4{font-size:12px; letter-spacing:1px;}
+    .panel-card .handle .arr{font-size:10px;}
+    #leftPanels{max-width:196px; gap:4px;}
+    #legend .lrow{font-size:11.5px; gap:6px; padding:3px 0;}
+    #legend .ldot{width:9px; height:9px;}
+    #legend .hstep button{width:24px; height:24px;}
+    #paramPanel .group label{font-size:10.5px;}
+    #paramPanel .group label .val{font-size:10px;}
+    #paramPanel .btn-row button{font-size:11px; min-height:34px;}
     /* 居中于左侧菜单与右侧缩放滑杆之间的空隙 */
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 240px + 10px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 196px + 10px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 6px);
       bottom:max(10px, env(safe-area-inset-bottom));
       transform:none;
@@ -634,14 +646,14 @@
     #loading .splash-sub{font-size:13px; letter-spacing:1.5px;}
     #search input{width:min(140px, 32vw); font-size:14px; padding:6px 9px; border-radius:8px;}
     #search #searchBtn{width:38px; height:38px;}
-    #leftPanels{left:10px; bottom:10px; max-width:240px; gap:5px;
+    #leftPanels{left:10px; bottom:10px; max-width:196px; gap:4px;
       left:max(10px, env(safe-area-inset-left));
       bottom:max(10px, env(safe-area-inset-bottom));}
     #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
   }
   @media (max-width:560px) and (pointer:coarse){
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 200px + 8px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 180px + 8px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 4px);
     }
     #detail{
@@ -680,7 +692,7 @@
     #search input::placeholder{font-size:10px; font-style:italic;}
     #search #searchBtn{width:36px; height:36px;}
     #search #searchBtn svg{width:16px; height:16px;}
-    #leftPanels{max-width:200px;}
+    #leftPanels{max-width:180px;}
   }
   @media(max-width:480px){
     #topbar{padding:8px 4px 8px 10px;
@@ -737,8 +749,8 @@
     #search #shareBtn svg{width:20px; height:20px;}
     #qrModal .qr-close{width:52px; height:52px;}
   }
-  /* 触控端标题：手机竖屏两字一行；平板/横屏横排（对齐旧版） */
-  @media (pointer:coarse){
+  /* 手机触控：得意黑改烘焙图；平板用原横排实字 */
+  @media (max-width:767px) and (pointer:coarse){
     #topbar .title{text-shadow:none; max-width:none;}
     #topbar .title-zh{display:none !important;}
     #topbar .title-zh-bake-h{
@@ -768,15 +780,30 @@
   @media (max-width:480px) and (orientation:portrait) and (pointer:coarse){
     #topbar .title-zh-bake-v{width:calc(2 * 52px); max-width:min(42vw, 130px);}
   }
-  /* 平板：横排标题略放大，二维码保持搜索键右侧 */
+  /* 平板：恢复桌面同款横排得意黑 + 英文副标题排版 */
   @media (min-width:768px) and (pointer:coarse){
-    #topbar .title-zh-bake-h{
-      height:72px; max-width:min(48vw, 560px);
+    #topbar .title{
+      font-family:var(--font-smiley); font-size:68px; font-weight:700;
+      text-shadow:0 0 22px rgba(201,162,39,.55), 0 0 40px rgba(201,162,39,.2);
+      line-height:1.05; letter-spacing:6px; max-width:50vw;
+      white-space:normal; word-break:keep-all;
     }
-    #topbar .title-zh-bake-v{display:none;}
+    #topbar .title-zh{
+      display:inline !important; letter-spacing:inherit;
+    }
+    #topbar .title-row{display:inline;}
+    #topbar .title-row:nth-child(2)::before{content:" · "; color:var(--jin);}
+    #topbar .title-row:nth-child(2) .dot{display:none;}
+    #topbar .title-zh-bake-h,
+    #topbar .title-zh-bake-v{display:none !important;}
+    #topbar .title small{
+      display:block; font-family:var(--font-furion); font-size:16px;
+      letter-spacing:2.5px; margin-top:5px; max-width:none; line-height:1.2;
+      font-weight:600; opacity:.9; font-style:italic;
+    }
     #search{grid-template-columns:1fr auto auto; grid-template-rows:auto;}
     #search #shareBtn{grid-column:3; grid-row:1; align-self:center;}
-    /* 平板图例区再放大一点，避免大屏上显得过小 */
+    /* 平板图例保持较大可读 */
     #leftPanels{max-width:280px;}
     .panel-card .handle .label,
     .panel-card .handle h4{font-size:15px;}
@@ -1182,7 +1209,7 @@
   <!-- 库 -->
   <script src="assets/vendor/three.min.js"></script>
   <script src="assets/vendor/3d-force-graph.min.js"></script>
-  <script src="data/sunmao-graph.source.js?v=20260914h"></script>
+  <script src="data/sunmao-graph.source.js?v=20260914s"></script>
   <script src="data/province-outlines.js?v=20260810b"></script>
   <script src="data/liang-constellations.js?v=20260810n"></script>
   <script src="data/astro-constellations.js?v=20260810a"></script>
@@ -4233,14 +4260,19 @@
         html += '</div>';
       }
 
-      /* 古文摘录：古文斜体 + 译文灰色，左侧竖线引用块 */
+      /* 原文摘录：仅展示文言文原文 + 白话译文；不在此栏英译古文 */
       if (node.quotes && node.quotes.length){
         html += '<div class="detail-block"><h3>原文摘录 · Excerpts</h3><div class="quotes">';
         node.quotes.forEach(function(q){
+          var qCn = String(q.cn || "").trim();
+          var qTr = String(q.tr || "").trim();
+          /* 防御：若白话位误塞英文，或原文位误塞英文，则不当作摘录展示 */
+          if (qCn && /[A-Za-z]{4,}/.test(qCn) && !/[\u4e00-\u9fff]/.test(qCn)) qCn = "";
+          if (qTr && /[A-Za-z]{4,}/.test(qTr) && !/[\u4e00-\u9fff]/.test(qTr)) qTr = "";
+          if (!qCn) return;
           html += '<blockquote class="ref-quote quote-block">';
-          if (q.cn) html += '<span class="q-cn">' + linkifyMortise(escHtml(q.cn), node.id) + '</span>';
-          if (q.tr) html += '<span class="q-tr">' + linkifyMortise(escHtml(q.tr), node.id) + '</span>';
-          if (q.en) html += '<span class="ref-en">' + linkifyMortise(escHtml(q.en), node.id) + '</span>';
+          html += '<span class="q-cn">' + linkifyMortise(escHtml(qCn), node.id) + '</span>';
+          if (qTr) html += '<span class="q-tr">' + linkifyMortise(escHtml(qTr), node.id) + '</span>';
           html += '</blockquote>';
         });
         html += '</div></div>';
