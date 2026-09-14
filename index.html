@@ -81,6 +81,9 @@
     text-shadow:0 0 22px rgba(201,162,39,.55), 0 0 40px rgba(201,162,39,.2); line-height:1.05; letter-spacing:6px;
     white-space:normal; word-break:keep-all; max-width:50vw;}
   #topbar .title-zh{display:inline; letter-spacing:inherit;}
+  #topbar .title-zh-bake{display:none; height:auto; width:auto; max-width:min(52vw, 520px);
+    pointer-events:none; user-select:none; -webkit-user-drag:none;}
+  #topbar .title-zh-bake-v{display:none;}
   #topbar .title-row{display:inline;}
   #topbar .title-row .dot{color:var(--jin);}
   #topbar .title-row:nth-child(2)::before{content:" · "; color:var(--jin);}
@@ -111,13 +114,13 @@
   }
   /* 面板共用样式 */
   .panel-card{
-    background:var(--panelBg); border:1px solid var(--panelBorder);
+    background:rgba(22,17,12,0.90); border:1px solid var(--panelBorder);
     border-radius:10px; overflow:hidden;
     backdrop-filter:blur(4px); box-shadow:0 0 20px rgba(0,0,0,.45);
     transition:margin .25s ease;
   }
   .panel-card .handle{cursor:pointer; display:flex; align-items:center; justify-content:space-between;
-    padding:8px 12px; user-select:none;}
+    padding:8px 12px; user-select:none; flex:0 0 auto;}
   .panel-card .handle:hover{background:rgba(201,162,39,.06);}
   .panel-card .handle .label{font-size:13px; color:var(--jin); letter-spacing:1.5px; font-weight:600; font-family:var(--font-base);}
   .panel-card .handle h4{font-size:13px; color:var(--jin); letter-spacing:1px; margin:0; font-family:var(--font-base);}
@@ -127,6 +130,24 @@
     scrollbar-width:thin; scrollbar-color:rgba(201,166,107,.35) transparent;}
   .panel-card.closed .body{max-height:0; opacity:0; padding-top:0; padding-bottom:0;}
   .panel-card.closed .handle .arr{transform:rotate(-90deg);}
+  /* 力场参数：整卡限高，顶不冲出屏；滑条区滚动，底栏按钮固定 */
+  #paramPanel{
+    display:flex; flex-direction:column; max-height:min(78vh, calc(100dvh - 96px));
+    background:rgba(22,17,12,0.90);
+  }
+  #paramPanel .body{
+    display:flex; flex-direction:column; min-height:0; flex:1 1 auto;
+    max-height:min(70vh, calc(100dvh - 140px)); padding:0; overflow:hidden;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  #paramPanel .body::-webkit-scrollbar{display:none;}
+  #paramPanel.closed .body{max-height:0; opacity:0; padding:0; overflow:hidden;}
+  #paramPanel .body-scroll{
+    flex:1 1 auto; min-height:0; overflow-y:auto; overflow-x:hidden;
+    padding:0 12px 8px; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
+    scrollbar-width:none; -ms-overflow-style:none;
+  }
+  #paramPanel .body-scroll::-webkit-scrollbar{display:none;}
   #paramPanel h3{font-size:13px; color:var(--jin); margin-bottom:10px; letter-spacing:1px;
     border-bottom:1px solid var(--panelBorder); padding-bottom:6px; font-family:var(--font-base);}
   #paramPanel .group{margin-bottom:8px;}
@@ -142,19 +163,21 @@
     -webkit-appearance:none; width:14px; height:14px; border-radius:50%;
     background:var(--jin); box-shadow:0 0 8px rgba(201,162,39,.5); cursor:pointer;
   }
-  #paramPanel .btn-row{display:flex; gap:6px; margin-top:10px;}
+  #paramPanel .btn-row{
+    display:flex; gap:6px; flex:0 0 auto; margin:0;
+    padding:8px 12px 12px;
+    border-top:1px solid rgba(201,162,39,.22);
+    background:rgba(22,17,12,0.96);
+  }
   #paramPanel .btn-row button{
-    flex:1; padding:6px 0; border:1px solid var(--panelBorder); border-radius:7px;
+    flex:1; padding:8px 0; border:1px solid var(--panelBorder); border-radius:7px;
     background:rgba(201,162,39,.08); color:var(--paper); font-family:var(--font-base);
     font-size:11px; cursor:pointer; transition:all .2s; letter-spacing:.3px;
+    min-height:36px;
   }
   #paramPanel .btn-row button:hover{background:rgba(201,162,39,.22); border-color:var(--jin);}
   #paramPanel .btn-row button.primary{background:linear-gradient(135deg,rgba(201,162,39,.4),rgba(157,125,24,.35));
     border-color:var(--jin); color:#fff; font-weight:600;}
-  /* paramPanel body：展开时可滚动，隐藏滚动条 */
-  #paramPanel .body{overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none;}
-  #paramPanel .body::-webkit-scrollbar{display:none;}
-  #paramPanel.closed .body{overflow:hidden;}
   /* legend body：展开时不滚动 */
   #legend .body{overflow:hidden;}
   /* v6 图例行：点击点亮/熄灭，无 checkbox */
@@ -278,7 +301,9 @@
     font-family:var(--font-base); font-size:12.5px; font-style:normal; letter-spacing:1px;
     padding:3px 9px; border-radius:7px; white-space:nowrap; z-index:6;
     box-shadow:0 4px 14px rgba(0,0,0,.5); transition:opacity .16s ease, transform .16s ease;}
-  #detail .py-term:hover::after{opacity:1; transform:translateX(-50%) translateY(0);}
+  #detail .py-term:hover::after,
+  #detail .py-term:focus-visible::after,
+  #detail .py-term.is-on::after{opacity:1; transform:translateX(-50%) translateY(0);}
   #detail .desc .spacer{display:none;}
   .detail-block{margin-top:14px; padding-top:12px; border-top:1px solid rgba(201,162,39,.2);}
   .detail-block h3{font-size:12px; color:var(--tian); letter-spacing:1.5px; margin-bottom:8px; font-weight:600;
@@ -410,15 +435,18 @@
   @keyframes spin{to{transform:rotate(360deg);}}
 
   /* 主界面：加载完成后淡入 */
-  #topbar,#leftPanels,#search,#detail,#navHint,#zoomRail{opacity:0; transition:opacity .7s ease .15s; pointer-events:none;}
-  body.app-ready #topbar,body.app-ready #leftPanels,body.app-ready #search,body.app-ready #detail,body.app-ready #navHint{
+  #topbar,#leftPanels,#search,#detail,#navHint,#zoomRail,#shareBtn{opacity:0; transition:opacity .7s ease .15s; pointer-events:none;}
+  body.app-ready #topbar,body.app-ready #leftPanels,body.app-ready #search,body.app-ready #detail,body.app-ready #navHint,body.app-ready #shareBtn{
     opacity:1; pointer-events:auto;}
   body.app-ready #detail.open{pointer-events:auto;}
-  body.app-ready #navHint{pointer-events:none;}
+  body.app-ready #navHint{pointer-events:none; transition:opacity .55s ease;}
+  body.app-ready #navHint.is-busy{opacity:0; transition:opacity .2s ease;}
   @media (pointer:coarse){
     body.app-ready #zoomRail{opacity:1; pointer-events:auto;}
     body.app-ready.detail-open #zoomRail,
     body.app-ready:has(#detail.open) #zoomRail{opacity:0; pointer-events:none;}
+    body.app-ready.detail-open #shareBtn,
+    body.app-ready:has(#detail.open) #shareBtn{opacity:0; pointer-events:none;}
     /* 手机端开卡：浮窗不盖左下角时仍可操作图例/参数 */
     body.app-ready.detail-open #leftPanels,
     body.app-ready:has(#detail.open) #leftPanels{
@@ -429,15 +457,15 @@
   /* 隐藏库自带纯文字导航 */
   .scene-nav-info{display:none!important;}
 
-  /* 底部操纵提示：单色小行 */
+  /* 底部操纵提示：简洁文字，无底框 */
   #navHint{
     position:fixed; left:50%; bottom:12px; transform:translateX(-50%); z-index:8;
-    display:flex; align-items:center; gap:7px;
-    padding:3px 10px;
-    background:rgba(22,17,12,.72); border:1px solid rgba(201,162,39,.18);
-    border-radius:999px;
-    font-family:var(--font-en); font-size:10px; line-height:1;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:0; margin:0;
+    background:none; border:none; box-shadow:none; border-radius:0;
+    font-family:var(--font-en); font-size:10px; line-height:1.2;
     color:rgba(233,220,192,.68); letter-spacing:.25px; white-space:nowrap;
+    pointer-events:none;
   }
   #navHint .nav-item{display:inline-flex; align-items:center; gap:4px;}
   #navHint .nav-mouse{display:inline-flex; align-items:center; gap:7px;}
@@ -488,7 +516,7 @@
     .node-label{pointer-events:none !important;}
   }
   @media(max-width:560px){
-    #navHint{bottom:8px; padding:3px 8px; gap:5px; font-size:9px;}
+    #navHint{bottom:8px; gap:5px; font-size:9px;}
     #navHint .mico{width:9px; height:12px;}
   }
 
@@ -504,6 +532,19 @@
   @media (max-width:768px) and (pointer:coarse){
     #navHint .nav-mouse{display:none;}
     #navHint .nav-touch{display:inline;}
+    /* 居中于左侧菜单与右侧缩放滑杆之间的空隙 */
+    #navHint{
+      left:calc(max(10px, env(safe-area-inset-left)) + 210px + 10px);
+      right:calc(max(4px, env(safe-area-inset-right)) + 44px + 6px);
+      bottom:max(10px, env(safe-area-inset-bottom));
+      transform:none;
+      width:auto;
+      white-space:normal;
+      text-align:center;
+      font-size:9px;
+      line-height:1.35;
+      letter-spacing:.15px;
+    }
     /* 移动端：毛玻璃浮窗，不全屏 */
     #detail{
       top:auto; left:auto;
@@ -547,18 +588,22 @@
       bottom:max(10px, env(safe-area-inset-bottom));}
     #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
   }
-  /* 窄屏非触控：仍用右侧抽拉栏 */
-  @media (max-width:768px) and (pointer:fine){
-    #detail{width:min(100vw - env(safe-area-inset-right), 360px);
-      padding-right:env(safe-area-inset-right);}
-  }
   @media (max-width:560px) and (pointer:coarse){
+    #navHint{
+      left:calc(max(10px, env(safe-area-inset-left)) + 180px + 8px);
+      right:calc(max(4px, env(safe-area-inset-right)) + 44px + 4px);
+    }
     #detail{
       width:min(90vw, 360px);
       height:min(70vh, 580px);
       right:max(8px, env(safe-area-inset-right));
       bottom:max(10px, env(safe-area-inset-bottom));
     }
+  }
+  /* 窄屏非触控：仍用右侧抽拉栏 */
+  @media (max-width:768px) and (pointer:fine){
+    #detail{width:min(100vw - env(safe-area-inset-right), 360px);
+      padding-right:env(safe-area-inset-right);}
   }
   @media(max-width:640px) and (orientation:portrait){
     /* 竖屏标题：两字一行 · 木 / 构千 / 年 */
@@ -592,11 +637,103 @@
     #topbar .title{font-size:52px;}
     #search input{width:min(120px, 32vw);}
   }
+
+  /* ─── 分享二维码按钮 + 弹层 ─── */
+  #shareBtn{
+    position:fixed; z-index:46;
+    right:max(22px, env(safe-area-inset-right));
+    bottom:max(56px, calc(env(safe-area-inset-bottom) + 48px));
+    width:48px; height:48px; padding:0; margin:0;
+    border-radius:12px; border:1px solid rgba(201,162,39,.42);
+    background:rgba(22,17,12,.88);
+    box-shadow:0 0 16px rgba(201,162,39,.22), 0 8px 24px rgba(0,0,0,.4);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:border-color .2s, box-shadow .2s, background .2s, transform .15s;
+  }
+  #shareBtn:hover{border-color:var(--jin); background:rgba(201,162,39,.14);
+    box-shadow:0 0 22px rgba(201,162,39,.38), 0 8px 24px rgba(0,0,0,.45);}
+  #shareBtn:active{transform:scale(.96);}
+  #shareBtn svg{width:26px; height:26px; display:block;}
+  #qrModal{
+    position:fixed; inset:0; z-index:80; display:flex; align-items:center; justify-content:center;
+    padding:max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+    background:rgba(6,4,2,.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    opacity:0; pointer-events:none; transition:opacity .28s ease;
+  }
+  #qrModal.open{opacity:1; pointer-events:auto;}
+  #qrModal .qr-panel{
+    position:relative; width:min(92vw, 360px);
+    padding:28px 22px 24px; border-radius:16px;
+    background:linear-gradient(205deg, rgba(38,28,18,.94), rgba(18,13,9,.96));
+    border:1px solid rgba(201,162,39,.38);
+    box-shadow:0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,248,235,.05) inset;
+    text-align:center;
+  }
+  #qrModal .qr-close{
+    position:absolute; top:8px; right:10px; width:36px; height:36px;
+    border:none; background:transparent; color:rgba(233,220,192,.7);
+    font-size:26px; line-height:1; cursor:pointer; border-radius:8px;
+  }
+  #qrModal .qr-close:hover{color:#fff; background:rgba(201,162,39,.12);}
+  #qrModal h3{font-family:var(--font-furion); font-size:18px; letter-spacing:2px; color:var(--jin); margin:0 0 4px;}
+  #qrModal p{font-size:11px; color:rgba(233,220,192,.55); letter-spacing:.4px; margin:0 0 14px; word-break:break-all;}
+  #qrModal .qr-glow{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:8px; border-radius:12px; background:rgba(0,0,0,.35);
+  }
+  #qrModal .qr-glow img{
+    width:min(240px, 68vw); height:auto; display:block;
+    filter:drop-shadow(0 0 6px rgba(201,162,39,.28)) drop-shadow(0 0 14px rgba(201,162,39,.12));
+  }
+  @media (pointer:coarse){
+    #shareBtn{
+      right:max(52px, calc(env(safe-area-inset-right) + 40px));
+      bottom:max(72px, calc(env(safe-area-inset-bottom) + 64px));
+      width:52px; height:52px;
+    }
+  }
+  /* 移动端：得意黑改烘焙图 */
+  @media (max-width:768px) and (pointer:coarse){
+    #topbar .title{text-shadow:none; max-width:none;}
+    #topbar .title-zh{display:none !important;}
+    #topbar .title-zh-bake-h{display:block; height:clamp(36px, 9vw, 56px); width:auto; max-width:min(58vw, 420px);}
+    #topbar .title-zh-bake-v{display:none;}
+  }
+  @media (max-width:640px) and (orientation:portrait) and (pointer:coarse){
+    #topbar .title-zh-bake-h{display:none;}
+    #topbar .title-zh-bake-v{
+      display:block; height:clamp(120px, 34vw, 188px); width:auto; max-width:42vw;
+    }
+  }
 </style>
 </head>
 <body>
   <div id="graph"></div>
   <div id="labels"></div>
+
+
+  <button type="button" id="shareBtn" title="分享站点二维码" aria-label="分享站点二维码">
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <path d="M12 54 L32 28 L52 54" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M32 28 V56" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round"/>
+      <rect x="14" y="14" width="36" height="12" rx="2.5" stroke="#C9A227" stroke-width="2.4"/>
+      <path d="M20 14 V26 M26 14 V26 M44 14 V26" stroke="#C9A227" stroke-width="2" stroke-linecap="round"/>
+      <path d="M50 20 H58" stroke="#C9A227" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="18" cy="48" r="2.2" stroke="#C9A227" stroke-width="1.8"/>
+      <path d="M44 45.5 H50 M47 42.5 V48.5" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <div id="qrModal" aria-hidden="true" role="dialog" aria-label="站点二维码">
+    <div class="qr-panel">
+      <button type="button" class="qr-close" id="qrClose" aria-label="关闭">×</button>
+      <h3>Tenennium</h3>
+      <p>tenennium.fluorescentmice.fun</p>
+      <div class="qr-glow">
+        <img src="assets/qr-tenennium-glow.png" alt="Tenennium 站点二维码" width="260" height="260" />
+      </div>
+    </div>
+  </div>
 
   <div id="zoomRail" aria-label="缩放">
     <div class="zoom-track-wrap" id="zoomTrack">
@@ -646,6 +783,8 @@
       <div class="title-zh" aria-label="榫卯 · 木构千年">
         <span class="title-row"><span>榫</span><span>卯</span></span><span class="title-row"><span class="dot">·</span><span>木</span></span><span class="title-row"><span>构</span><span>千</span></span><span class="title-row title-row-last"><span>年</span></span>
       </div>
+      <img class="title-zh-bake title-zh-bake-h" src="assets/title-zh-glow.png?v=1" alt="榫卯 · 木构千年" width="926" height="237" decoding="async" />
+      <img class="title-zh-bake title-zh-bake-v" src="assets/title-zh-glow-mobile.png?v=1" alt="榫卯 · 木构千年" width="279" height="537" decoding="async" />
       <small>A 3D Knowledge Graph of Chinese Mortise-Tenon Joinery</small>
     </div>
     <div id="search">
@@ -670,6 +809,7 @@
       <span class="arr">▼</span>
     </div>
     <div class="body">
+      <div class="body-scroll">
       <div class="group">
         <label>电荷强度 <span class="val" id="valCharge">-195</span></label>
         <input type="range" id="sliderCharge" min="-300" max="-5" value="-195" step="1" />
@@ -720,6 +860,7 @@
       <div class="group">
         <label>着色明度 <span class="val" id="valColorLight">0.45</span></label>
         <input type="range" id="sliderColorLight" min="0" max="100" value="45" step="1" />
+      </div>
       </div>
       <div class="btn-row">
         <button id="btnReset">重置默认</button>
@@ -964,7 +1105,7 @@
   <!-- 库 -->
   <script src="assets/vendor/three.min.js"></script>
   <script src="assets/vendor/3d-force-graph.min.js"></script>
-  <script src="data/sunmao-graph.source.js?v=20260810ae"></script>
+  <script src="data/sunmao-graph.source.js?v=20260914f"></script>
   <script src="data/province-outlines.js?v=20260810b"></script>
   <script src="data/liang-constellations.js?v=20260810n"></script>
   <script src="data/astro-constellations.js?v=20260810a"></script>
@@ -1401,6 +1542,118 @@
       });
       group.userData.mortiseForm = "luban";
       group.rotation.set(0.35, 0.55, 0.12);
+      return group;
+    }
+
+    /**
+     * 朝代彩蛋（水晶球音乐盒挂载模式）：
+     * 半透明球壳 + 木座内嵌「双鸟朝阳」石碑——河姆渡牙雕标志纹样的低模示意。
+     * 仅 hemudu 节点使用；面数控制在约 1.5k 以内，移动端可接受。
+     */
+    function makeLandmarkPartMat(hex, emissive, opacity){
+      var c = new THREE.Color(hex);
+      return new THREE.MeshStandardMaterial({
+        color: c, emissive: c, emissiveIntensity: emissive == null ? 0.55 : emissive,
+        metalness: 0.28, roughness: 0.38, transparent: true, opacity: opacity == null ? 0.96 : opacity
+      });
+    }
+    /** sign: -1 左鸟（喙朝 +X / 太阳），+1 右鸟（喙朝 -X） */
+    function makeHemuduBird(sign, birdMat, goldMat){
+      var g = new THREE.Group();
+      var body = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 6), birdMat);
+      body.scale.set(1.35, 0.72, 0.55);
+      body.position.set(0, 0.02, 0.02);
+      body.userData.fixedMat = true;
+      g.add(body);
+      var head = new THREE.Mesh(new THREE.SphereGeometry(0.055, 7, 5), birdMat);
+      head.position.set(sign * 0.12, 0.06, 0.04);
+      head.userData.fixedMat = true;
+      g.add(head);
+      var beak = new THREE.Mesh(new THREE.ConeGeometry(0.022, 0.07, 5), goldMat);
+      beak.rotation.z = sign > 0 ? Math.PI * 0.5 : -Math.PI * 0.5;
+      beak.position.set(sign * 0.17, 0.055, 0.05);
+      beak.userData.fixedMat = true;
+      g.add(beak);
+      var wing = new THREE.Mesh(new THREE.ConeGeometry(0.09, 0.18, 4), birdMat);
+      wing.rotation.set(0.35, 0, sign * 0.85);
+      wing.position.set(-sign * 0.02, 0.04, -0.02);
+      wing.userData.fixedMat = true;
+      g.add(wing);
+      var crest = new THREE.Mesh(new THREE.ConeGeometry(0.025, 0.08, 4), goldMat);
+      crest.position.set(sign * 0.1, 0.12, 0.03);
+      crest.userData.fixedMat = true;
+      g.add(crest);
+      /* 立于碑面两侧，朝向中央太阳 */
+      g.position.set(sign * -0.34, -0.02, 0.1);
+      return g;
+    }
+    function makeHemuduCrystalLandmark(){
+      var group = new THREE.Group();
+      var stone = makeLandmarkPartMat(0xA89878, 0.42);
+      var bird = makeLandmarkPartMat(0x5C4A36, 0.48);
+      var gold = makeLandmarkPartMat(0xC9A227, 0.88);
+      var paper = makeLandmarkPartMat(0xD9C8A9, 0.52);
+      var dark = makeLandmarkPartMat(0x4A3A28, 0.4);
+      var glass = new THREE.MeshStandardMaterial({
+        color: 0xE8D5A3, emissive: 0xC9A227, emissiveIntensity: 0.32,
+        metalness: 0.12, roughness: 0.06, transparent: true, opacity: 0.2,
+        depthWrite: false
+      });
+
+      /* 音乐盒底座 */
+      var base = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.62, 0.14, 14), dark);
+      base.position.y = -0.72;
+      base.userData.fixedMat = true;
+      group.add(base);
+      var rim = new THREE.Mesh(new THREE.TorusGeometry(0.52, 0.032, 6, 18), gold);
+      rim.rotation.x = Math.PI * 0.5;
+      rim.position.y = -0.64;
+      rim.userData.fixedMat = true;
+      group.add(rim);
+
+      /* 石碑（接受朝代金荧光，便于深度衰减）+ 牙色碑面 */
+      var stele = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.72, 0.12), stone);
+      stele.position.set(0, -0.12, 0);
+      group.add(stele);
+      var face = new THREE.Mesh(new THREE.BoxGeometry(0.74, 0.58, 0.02), paper);
+      face.position.set(0, -0.08, 0.07);
+      face.userData.fixedMat = true;
+      group.add(face);
+
+      /* 中央太阳纹 + 八芒 */
+      var sun = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.04, 12), gold);
+      sun.rotation.x = Math.PI * 0.5;
+      sun.position.set(0, -0.02, 0.1);
+      sun.userData.fixedMat = true;
+      group.add(sun);
+      var core = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 6), gold.clone());
+      core.material.emissiveIntensity = 1.15;
+      core.position.set(0, -0.02, 0.13);
+      core.userData.fixedMat = true;
+      group.add(core);
+      for (var i = 0; i < 8; i++){
+        var a = (i / 8) * Math.PI * 2;
+        var ray = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.11, 0.018), gold);
+        ray.position.set(Math.cos(a) * 0.17, -0.02 + Math.sin(a) * 0.17, 0.1);
+        ray.rotation.z = a;
+        ray.userData.fixedMat = true;
+        group.add(ray);
+      }
+
+      group.add(makeHemuduBird(-1, bird, gold));
+      group.add(makeHemuduBird(1, bird, gold));
+
+      /* 水晶球壳 + 赤道金环 */
+      var shell = new THREE.Mesh(new THREE.SphereGeometry(0.92, 18, 14), glass);
+      shell.userData.fixedMat = true;
+      group.add(shell);
+      var eq = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.012, 5, 24), gold);
+      eq.rotation.x = Math.PI * 0.5;
+      eq.userData.fixedMat = true;
+      group.add(eq);
+
+      group.userData.landmarkForm = "hemudu-shuangniao";
+      group.userData.easterEgg = "shuangniao-chaoyang";
       return group;
     }
 
@@ -2001,7 +2254,10 @@
         return pGroup;
       }
       var geoOrGroup;
-      if (node.type === "literature") {
+      if (node.id === "hemudu") {
+        /* 朝代彩蛋：水晶球音乐盒内嵌双鸟朝阳石碑 */
+        geoOrGroup = makeHemuduCrystalLandmark();
+      } else if (node.type === "literature") {
         geoOrGroup = makeLiteratureGeometry(node);
       } else if (node.type === "region" && node.level === 2) {
         geoOrGroup = makeProvincePrismGeometry(node);
@@ -2020,7 +2276,7 @@
       var mesh;
       var isCompound = geoOrGroup && (
         geoOrGroup.isGroup || geoOrGroup.type === "Group" ||
-        (geoOrGroup.userData && (geoOrGroup.userData.isScroll || geoOrGroup.userData.bookForm || geoOrGroup.userData.mortiseForm || geoOrGroup.userData.heritageForm))
+        (geoOrGroup.userData && (geoOrGroup.userData.isScroll || geoOrGroup.userData.bookForm || geoOrGroup.userData.mortiseForm || geoOrGroup.userData.heritageForm || geoOrGroup.userData.landmarkForm))
       );
       if (isCompound) {
         mesh = geoOrGroup;
@@ -2046,6 +2302,8 @@
       } else if (node.type === "heritage") {
         var af = node.__archForm || "miao";
         baseScale *= (af === "ta" ? 1.15 : (af === "ting" ? 1.05 : 1.1));
+      } else if (node.id === "hemudu") {
+        baseScale *= 1.14; /* 水晶球内石碑略放大便于辨认 */
       }
       mesh.scale.setScalar(baseScale);
       var halo = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -3060,6 +3318,27 @@
       });
     }
 
+
+    /* ─── 站点二维码弹层 ─── */
+    (function(){
+      var btn = document.getElementById("shareBtn");
+      var modal = document.getElementById("qrModal");
+      var closeBtn = document.getElementById("qrClose");
+      if (!btn || !modal) return;
+      function openQr(){
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+      function closeQr(){
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+      btn.addEventListener("click", function(e){ e.stopPropagation(); openQr(); });
+      if (closeBtn) closeBtn.addEventListener("click", closeQr);
+      modal.addEventListener("click", function(e){ if (e.target === modal) closeQr(); });
+      document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeQr(); });
+    })();
+
     var controls = Graph.controls();
     controls.autoRotate = false;
     controls.autoRotateSpeed = 0.5;
@@ -3182,7 +3461,7 @@
       document.addEventListener("touchmove", function(e){
         var t = e.target;
         if (!t) return;
-        if (t.closest && t.closest("#graph, canvas, #detailScroll, #paramPanel .body, #legend .body, #search, #zoomRail, input, textarea")) return;
+        if (t.closest && t.closest("#graph, canvas, #detailScroll, #paramPanel .body, #legend .body, #search, #zoomRail, #qrModal, #shareBtn, input, textarea")) return;
         if (e.cancelable) e.preventDefault();
       }, {passive:false});
       var guardRoot = document.getElementById("graph") || document.body;
@@ -3217,6 +3496,25 @@
           touchGuard.moved = false;
         }, 280);
       }, {passive:true});
+      /* 操纵提示：操作时隐藏，空闲后淡入 */
+      (function setupNavHintIdle(){
+        var hint = document.getElementById("navHint");
+        if (!hint) return;
+        var IDLE_MS = 2800;
+        var idleTimer = null;
+        function markBusy(){
+          hint.classList.add("is-busy");
+          if (idleTimer) clearTimeout(idleTimer);
+          idleTimer = setTimeout(function(){
+            hint.classList.remove("is-busy");
+            idleTimer = null;
+          }, IDLE_MS);
+        }
+        var listenOpts = {passive:true, capture:true};
+        ["touchstart", "touchmove", "pointerdown", "wheel"].forEach(function(ev){
+          document.addEventListener(ev, markBusy, listenOpts);
+        });
+      })();
       setTimeout(syncZoomSlider, 3200);
       setInterval(function(){
         if (document.hidden) return;
@@ -3490,6 +3788,8 @@
         ["gongcheng zuofa zeli", "\u300A\u5DE5\u7A0B\u505A\u6CD5\u5219\u4F8B\u300B"],
         ["yingzao fashi", "\u300A\u8425\u9020\u6CD5\u5F0F\u300B"],
         ["tiangong kaiwu", "\u300A\u5929\u5DE5\u5F00\u7269\u300B"],
+        ["gujin tushu jicheng", "\u300A\u53E4\u4ECA\u56FE\u4E66\u96C6\u6210\u300B"],
+        ["yongle dadian", "\u300A\u6C38\u4E50\u5927\u5178\u300B"],
         ["sun-mao", "\u69AB\u536F"],
         ["sun mao", "\u69AB\u536F"],
         ["sunmao", "\u69AB\u536F"],
@@ -3512,6 +3812,8 @@
         ["puzuo", "\u94FA\u4F5C"],
         ["ling-gong", "\u4EE4\u62F1"],
         ["linggong", "\u4EE4\u62F1"],
+        ["hua-gong", "\u534E\u62F1"],
+        ["huagong", "\u534E\u62F1"],
         ["zong-jiao", "\u7CBD\u89D2\u69AB"],
         ["zongjiao", "\u7CBD\u89D2\u69AB"],
         ["bao-jian", "\u62B1\u80A9\u69AB"],
@@ -3520,6 +3822,9 @@
         ["gejian", "\u683C\u80A9\u69AB"],
         ["jia-tou", "\u5939\u5934\u69AB"],
         ["jiaotou", "\u5939\u5934\u69AB"],
+        ["gu tou zi", "\u7B8D\u5934\u69AB"],
+        ["gu-tou-zi", "\u7B8D\u5934\u69AB"],
+        ["gutouzi", "\u7B8D\u5934\u69AB"],
         ["cha-jian", "\u63D2\u80A9\u69AB"],
         ["chajian", "\u63D2\u80A9\u69AB"],
         ["chuan-dai", "\u7A7F\u5E26\u69AB"],
@@ -3538,8 +3843,8 @@
         ["xieding", "\u68C9\u9489\u69AB"],
         ["ba-wang", "\u9738\u738B\u67A8"],
         ["bawang", "\u9738\u738B\u67A8"],
-        ["long-feng", "\u9F99\u51E4"],
-        ["longfeng", "\u9F99\u51E4"],
+        ["long-feng", "\u9F99\u51E4\u69AB"],
+        ["longfeng", "\u9F99\u51E4\u69AB"],
         ["man-tou", "\u998D\u5934\u69AB"],
         ["mantou", "\u998D\u5934\u69AB"],
         ["gou-tou", "\u7B8D\u5934\u69AB"],
@@ -3560,20 +3865,140 @@
         ["caokou", "\u69FD\u53E3\u69AB"],
         ["chao-shou", "\u6284\u624B\u69AB"],
         ["chaoshou", "\u6284\u624B\u69AB"],
+        ["chaosou", "\u6284\u624B\u69AB"],
         ["yin-yang", "\u9634\u9633"],
         ["yinyang", "\u9634\u9633"],
+        /* ── 更多榫名拼音（与英文标题/正文中的拼写对齐） ── */
+        ["zhi-sun", "\u76F4\u69AB"],
+        ["zhisun", "\u76F4\u69AB"],
+        ["ban-sun", "\u534A\u69AB"],
+        ["bansun", "\u534A\u69AB"],
+        ["tong-sun", "\u901A\u69AB"],
+        ["tongsun", "\u901A\u69AB"],
+        ["tou-sun", "\u900F\u69AB"],
+        ["tousun", "\u900F\u69AB"],
+        ["an-sun", "\u6697\u69AB"],
+        ["ansun", "\u6697\u69AB"],
+        ["an-xiao", "\u6697\u9500"],
+        ["anxiao", "\u6697\u9500"],
+        ["ban-tong", "\u534A\u901A\u69AB"],
+        ["bantong", "\u534A\u901A\u69AB"],
+        ["bizi-sun", "\u9F3B\u5B50\u69AB"],
+        ["bizisun", "\u9F3B\u5B50\u69AB"],
+        ["chazi-sun", "\u53C9\u5B50\u69AB"],
+        ["chazisun", "\u53C9\u5B50\u69AB"],
+        ["ci-xiong", "\u96CC\u96C4\u69AB"],
+        ["cixiong", "\u96CC\u96C4\u69AB"],
+        ["da-jin-xiao-chu", "\u5927\u8FDB\u5C0F\u51FA\u69AB"],
+        ["dajinxiaochu", "\u5927\u8FDB\u5C0F\u51FA\u69AB"],
+        ["da-zhang", "\u642D\u638C\u69AB"],
+        ["dazhang", "\u642D\u638C\u69AB"],
+        ["ding-kong", "\u9876\u7A7A\u69AB"],
+        ["dingkong", "\u9876\u7A7A\u69AB"],
+        ["dou-sun", "\u9B2D\u69AB"],
+        ["dousun", "\u9B2D\u69AB"],
+        ["dui-sun", "\u5BF9\u69AB"],
+        ["duisun", "\u5BF9\u69AB"],
+        ["er-deng", "\u4E8C\u8E6C\u69AB"],
+        ["erdeng", "\u4E8C\u8E6C\u69AB"],
+        ["er-he", "\u4E8C\u5408\u69AB"],
+        ["erhe", "\u4E8C\u5408\u69AB"],
+        ["er-jian-deng", "\u4E8C\u80A9\u8E6C\u69AB"],
+        ["erjiandeng", "\u4E8C\u80A9\u8E6C\u69AB"],
+        ["gong-mu", "\u516C\u6BCD\u69AB"],
+        ["gongmu", "\u516C\u6BCD\u69AB"],
+        ["he-bao", "\u8377\u5305\u69AB"],
+        ["hebao", "\u8377\u5305\u69AB"],
+        ["ji-wei", "\u9E21\u5C3E\u69AB"],
+        ["jiwei", "\u9E21\u5C3E\u69AB"],
+        ["jiao-kou", "\u4EA4\u53E3\u69AB"],
+        ["jiaokou", "\u4EA4\u53E3\u69AB"],
+        ["kou-jin", "\u6263\u91D1\u5F0F\u7B8D\u5934\u69AB"],
+        ["koujin", "\u6263\u91D1\u5F0F\u7B8D\u5934\u69AB"],
+        ["long-she", "\u9F99\u820C\u69AB"],
+        ["longshe", "\u9F99\u820C\u69AB"],
+        ["ping-jie", "\u5E73\u63A5\u69AB"],
+        ["pingjie", "\u5E73\u63A5\u69AB"],
+        ["qi-ma", "\u9A91\u9A6C\u69AB"],
+        ["qima", "\u9A91\u9A6C\u69AB"],
+        ["quan-tong", "\u5168\u901A\u69AB"],
+        ["quantong", "\u5168\u901A\u69AB"],
+        ["san-he", "\u4E09\u5408\u69AB"],
+        ["sanhe", "\u4E09\u5408\u69AB"],
+        ["shang-xia", "\u4E0A\u4E0B\u69AB"],
+        ["shangxia", "\u4E0A\u4E0B\u69AB"],
+        ["shuang-jian", "\u53CC\u80A9\u76F4\u69AB"],
+        ["shuangjian", "\u53CC\u80A9\u76F4\u69AB"],
+        ["shuang-sun", "\u53CC\u69AB"],
+        ["shuangsun", "\u53CC\u69AB"],
+        ["tang-lang-tou", "\u87B3\u8782\u5934\u69AB"],
+        ["tanglangtou", "\u87B3\u8782\u5934\u69AB"],
+        ["tanglang", "\u87B3\u8782\u5934\u69AB"],
+        ["wu-jian-zhi", "\u65E0\u80A9\u76F4\u69AB"],
+        ["wujianzhi", "\u65E0\u80A9\u76F4\u69AB"],
+        ["xiu-jian", "\u8896\u80A9\u71D5\u5C3E\u69AB"],
+        ["xiujian", "\u8896\u80A9\u71D5\u5C3E\u69AB"],
+        ["yang-sun", "\u9633\u69AB"],
+        ["yangsun", "\u9633\u69AB"],
+        ["yin-sun", "\u9634\u69AB"],
+        ["yinsun", "\u9634\u69AB"],
+        ["you-tong", "\u6CB9\u6876\u69AB"],
+        ["youtong", "\u6CB9\u6876\u69AB"],
+        ["yuan-bao", "\u5143\u5B9D\u69AB"],
+        ["yuanbao", "\u5143\u5B9D\u69AB"],
+        ["yuan-yang", "\u9E33\u9E2F\u69AB"],
+        ["yuanyang", "\u9E33\u9E2F\u69AB"],
+        ["zhong-ban-tong", "\u4E2D\u534A\u901A\u69AB"],
+        ["zhongbantong", "\u4E2D\u534A\u901A\u69AB"],
+        ["zhou-jian-zhi", "\u5468\u80A9\u76F4\u69AB"],
+        ["zhoujianzhi", "\u5468\u80A9\u76F4\u69AB"],
+        ["zhu-jiao", "\u67F1\u811A\u69AB"],
+        ["zhujiao", "\u67F1\u811A\u69AB"],
+        ["zhu-nei-jian", "\u67F1\u5185\u952E\u69AB"],
+        ["zhuneijian", "\u67F1\u5185\u952E\u69AB"],
+        ["jiao-cha", "\u67F1\u4E2D\u9500"],
+        ["jiaocha", "\u67F1\u4E2D\u9500"],
+        ["yu-san", "\u96E8\u4F1E\u9500"],
+        ["yusan", "\u96E8\u4F1E\u9500"],
+        ["to-mu", "\u6258\u6728\u69AB\u536F"],
+        ["tomu", "\u6258\u6728\u69AB\u536F"],
         ["yingzao", "\u8425\u9020"],
         ["kaogongji", "\u8003\u5DE5\u8BB0"],
+        ["kaogong", "\u8003\u5DE5\u8BB0"],
         ["gongcheng", "\u5DE5\u7A0B"],
         ["zuofa", "\u505A\u6CD5"],
         ["zeli", "\u5219\u4F8B"],
         ["zongzi", "\u7CBD\u5B50"],
+        ["luohan chuang", "\u7F57\u6C49\u5E8A"],
         ["luohan", "\u7F57\u6C49"],
         ["guazhu", "\u74DC\u67F1"],
+        ["gua-zhu", "\u74DC\u67F1"],
         ["haiyan", "\u6D77\u773C"],
-        ["kentoshi", "\u9063\u5510\u4F7F"]
+        ["hai-yan", "\u6D77\u773C"],
+        ["kentoshi", "\u9063\u5510\u4F7F"],
+        ["mingshi", "\u660E\u5F0F"],
+        ["ming-shi", "\u660E\u5F0F"],
+        ["yongle", "\u6C38\u4E50"],
+        ["zhili", "\u76F4\u96B6"]
       ];
-      /* 只用白名单复合词；绝不从节点 id 自动灌音节（zhi≠直榫垄断） */
+      /* 从图谱节点自动补拉丁 id→中文名（仅复合词，跳过 zhi/ban 等短音节） */
+      var seenKey = {};
+      raw.forEach(function(pair){ seenKey[pair[0].toLowerCase().replace(/[\s\-]/g, "")] = true; });
+      (DATA.nodes || []).forEach(function(n){
+        if (!n || !n.id || !n.name) return;
+        if (!/[\u4e00-\u9fff]/.test(n.name)) return;
+        var id = String(n.id).toLowerCase();
+        if (!/^[a-z][a-z0-9_\-]{3,}$/.test(id)) return;
+        var compact = id.replace(/[_\-]/g, "");
+        if (compact.length < 4) return;
+        if (seenKey[compact]) return;
+        seenKey[compact] = true;
+        raw.push([id.replace(/_/g, "-"), n.name]);
+        if (id.indexOf("_") >= 0 || id.indexOf("-") >= 0) {
+          raw.push([compact, n.name]);
+        }
+      });
+      /* 只用白名单复合词；绝不把单音节做成全局字典（zhi≠直榫垄断） */
       var list = [];
       raw.forEach(function(pair){
         var pat = pair[0].toLowerCase(), cn = pair[1];
@@ -3601,7 +4026,7 @@
         var chunk = parts[i];
         PY_GLOSS.forEach(function(g){
           chunk = chunk.replace(g.re, function(mm){
-            return '<span class="py-term" data-cn="' + g.cn + '">' + mm + '</span>';
+            return '<span class="py-term" tabindex="0" data-cn="' + g.cn + '">' + mm + '</span>';
           });
         });
         parts[i] = chunk;
@@ -3653,6 +4078,7 @@
           html += '<blockquote class="ref-quote quote-block">';
           if (q.cn) html += '<span class="q-cn">' + linkifyMortise(escHtml(q.cn), node.id) + '</span>';
           if (q.tr) html += '<span class="q-tr">' + linkifyMortise(escHtml(q.tr), node.id) + '</span>';
+          if (q.en) html += '<span class="ref-en">' + linkifyMortise(escHtml(q.en), node.id) + '</span>';
           html += '</blockquote>';
         });
         html += '</div></div>';
@@ -3751,7 +4177,17 @@
       _focusedNodeId = null;
     });
     /* 正文榫名点击 → 跳转对应榫卯类型节点（事件委托，一次绑定） */
-    document.getElementById("detailBody").addEventListener("click", function(e){
+    function onDetailInteract(e){
+      var py = e.target && e.target.closest ? e.target.closest(".py-term") : null;
+      if (py){
+        e.stopPropagation();
+        var on = py.classList.contains("is-on");
+        document.querySelectorAll("#detail .py-term.is-on").forEach(function(el){
+          el.classList.remove("is-on");
+        });
+        if (!on) py.classList.add("is-on");
+        return;
+      }
       var cul = e.target && e.target.closest ? e.target.closest(".cul-note") : null;
       if (cul){
         sfxPlay("tick");
@@ -3769,6 +4205,15 @@
         applyFilter();
       }
       setTimeout(function(){ clickNode(target); }, 0);
+    }
+    document.getElementById("detailBody").addEventListener("click", onDetailInteract);
+    var detailEnEl = document.getElementById("detailEn");
+    if (detailEnEl) detailEnEl.addEventListener("click", onDetailInteract);
+    document.getElementById("detail").addEventListener("click", function(e){
+      if (e.target && e.target.closest && e.target.closest(".py-term")) return;
+      document.querySelectorAll("#detail .py-term.is-on").forEach(function(el){
+        el.classList.remove("is-on");
+      });
     });
 
     /* ─── v6 筛选：点击图例行点亮/熄灭（无 checkbox）；古建默认关闭 ─── */
