@@ -549,22 +549,23 @@
 
   /* ─── 响应式 v10 + 触屏 ─── */
   @media (pointer:coarse){
-    .panel-card .handle{min-height:38px; padding:7px 10px;}
+    /* 菜单恢复参考尺寸；搜索胶囊仍略收 */
+    .panel-card .handle{min-height:44px; padding:10px 12px;}
     .panel-card .handle .label,
-    .panel-card .handle h4{font-size:11.5px; letter-spacing:1px;}
-    .panel-card .handle .arr{font-size:9px;}
-    .panel-card{border-radius:8px;}
-    #leftPanels{max-width:200px; gap:4px;}
-    #legend .lrow{font-size:11px; gap:6px; padding:2px 0;}
-    #legend .ldot{width:8px; height:8px;}
-    #legend .hstep button{width:22px; height:22px; font-size:10px;}
-    #paramPanel .group{margin-bottom:6px;}
-    #paramPanel .group label{font-size:10px;}
-    #paramPanel .group label .val{font-size:9px;}
-    #paramPanel .body-scroll{padding:0 10px 6px;}
-    #paramPanel .btn-row{padding:6px 10px 10px; gap:5px;}
-    #paramPanel .btn-row button{font-size:10px; min-height:32px; padding:6px 0; border-radius:6px;}
-    #paramPanel .group input[type=range]::-webkit-slider-thumb{width:12px; height:12px;}
+    .panel-card .handle h4{font-size:13px; letter-spacing:1px;}
+    .panel-card .handle .arr{font-size:10px;}
+    .panel-card{border-radius:10px;}
+    #leftPanels{max-width:250px; gap:6px;}
+    #legend .lrow{font-size:12px; gap:7px; padding:3px 0;}
+    #legend .ldot{width:10px; height:10px;}
+    #legend .hstep button{width:28px; height:28px;}
+    #paramPanel .group{margin-bottom:8px;}
+    #paramPanel .group label{font-size:11px;}
+    #paramPanel .group label .val{font-size:10px;}
+    #paramPanel .body-scroll{padding:0 12px 8px;}
+    #paramPanel .btn-row{padding:8px 12px 12px; gap:6px;}
+    #paramPanel .btn-row button{font-size:11px; min-height:36px; padding:8px 0; border-radius:7px;}
+    #paramPanel .group input[type=range]::-webkit-slider-thumb{width:14px; height:14px;}
     #search input{
       width:min(200px, 34vw); padding:6px 10px; font-size:14px;
       border-radius:8px;
@@ -583,7 +584,7 @@
     #navHint .nav-touch{display:inline;}
     /* 居中于左侧菜单与右侧缩放滑杆之间的空隙 */
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 168px + 10px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 210px + 10px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 6px);
       bottom:max(10px, env(safe-area-inset-bottom));
       transform:none;
@@ -632,14 +633,14 @@
     #loading .splash-sub{font-size:13px; letter-spacing:1.5px;}
     #search input{width:min(140px, 32vw); font-size:14px; padding:6px 9px; border-radius:8px;}
     #search #searchBtn{width:38px; height:38px;}
-    #leftPanels{left:10px; bottom:10px; max-width:168px; gap:3px;
+    #leftPanels{left:10px; bottom:10px; max-width:210px; gap:4px;
       left:max(10px, env(safe-area-inset-left));
       bottom:max(10px, env(safe-area-inset-bottom));}
     #navHint{bottom:max(10px, env(safe-area-inset-bottom));}
   }
   @media (max-width:560px) and (pointer:coarse){
     #navHint{
-      left:calc(max(10px, env(safe-area-inset-left)) + 168px + 8px);
+      left:calc(max(10px, env(safe-area-inset-left)) + 180px + 8px);
       right:calc(max(4px, env(safe-area-inset-right)) + 44px + 4px);
     }
     #detail{
@@ -678,7 +679,7 @@
     #search input::placeholder{font-size:10px; font-style:italic;}
     #search #searchBtn{width:36px; height:36px;}
     #search #searchBtn svg{width:16px; height:16px;}
-    #leftPanels{max-width:156px;}
+    #leftPanels{max-width:180px;}
   }
   @media(max-width:480px){
     #topbar{padding:8px 4px 8px 10px;
